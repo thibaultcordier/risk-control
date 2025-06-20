@@ -1,0 +1,58 @@
+[project]
+name = "riskcontrol"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "matplotlib>=3.10.3",
+    "numpy>=2.3.0",
+    "scikit-learn>=1.7.0",
+]
+
+[dependency-groups]
+docs = [
+    "mkdocs>=1.6.1",
+    "mkdocs-gallery>=0.10.4",
+    "mkdocs-material>=9.6.14",
+    "mkdocstrings>=0.29.1",
+    "mkdocstrings-python>=1.16.12",
+    "pip-system-certs>=5.0",
+]
+dev = [
+    "black>=25.1.0",
+    "coverage>=7.9.1",
+    "flake8>=7.2.0",
+    "ipykernel>=6.29.5",
+    "isort>=6.0.1",
+    "mypy>=1.16.0",
+    "pytest>=8.4.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.mypy]
+python_version = "3.13"
+ignore_missing_imports = true
+
+[tool.isort]
+profile = "black"
+known_third_party = ["risk_control"]
+
+[tool.black]
+line-length = 90
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''

@@ -1,0 +1,76 @@
+site_name: Risk control for scikit-learn
+
+watch:
+  - risk_control
+  - docs
+
+theme:
+  name: "material"
+  features:
+    - content.code.annotate
+    - navigation.indexes
+    - navigation.sections
+    - navigation.tabs
+    - navigation.top
+    - navigation.tracking
+    - navigation.footer
+    - search.highlight
+    - search.share
+    - search.suggest
+
+nav:
+  - Home: index.md
+  - API:
+    - Controller Module: api/risk_control.md
+    - Decision Module:
+      - Base Module: api/decision/base.md
+      - Regression Module: api/decision/regression.md
+      - Classification Module: api/decision/classification.md
+      - Examples of Implementation: api/decision/examples.md
+    - Risk Module:
+      - Risk Based: api/risk.md
+    - Parameter Module:
+      - Parameter Module: api/parameter.md
+    - Utilities:
+      - P-Values: api/tools/pvalues.md
+      - FWER Control: api/tools/fwer_control.md
+  - Examples: generated/gallery
+
+plugins:
+- search
+- gallery:
+    examples_dirs: examples
+    gallery_dirs: docs/generated/gallery
+- mkdocstrings:
+    handlers:
+        python:
+            paths: [risk_control]
+            inventories:
+              - url: 'http://scikit-learn.org/stable/objects.inv'
+                domains: [std, py]
+              - url: 'https://numpy.org/doc/stable/objects.inv'
+                domains: [std, py]
+              - url: 'https://docs.python.org/3.13/objects.inv'
+                domains: [std, py]
+            options:
+                annotations_path: brief
+                docstring_options:
+                    ignore_init_summary: true
+                docstring_section_style: table
+                docstring_style: numpy
+                filters: [] # ["!^_"]
+                heading_level: 1
+                inherited_members: false
+                members_order: source
+                merge_init_into_class: true
+                parameter_headings: false
+                separate_signature: true
+                show_if_no_docstring: true
+                show_root_heading: true
+                show_root_full_path: false
+                show_signature_annotations: false
+                show_source: true
+                show_symbol_type_heading: false
+                show_symbol_type_toc: true
+                signature_crossrefs: true
+                summary: true
