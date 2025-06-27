@@ -589,6 +589,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#risk_control.MapieRiskControl.lambda_to_select" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;lambda_to_select
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#risk_control.MapieRiskControl.__init__" class="md-nav__link">
     <span class="md-ellipsis">
       <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;__init__
@@ -1169,6 +1178,8 @@
       
         
       
+        
+      
     
     
     
@@ -1273,6 +1284,29 @@
   
   <span class="md-ellipsis">
     Selective Regression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generated/gallery/plot_ai_assistance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Selective (Binary) Classification for Human-AI Collaboration
     
   </span>
   
@@ -1483,6 +1517,15 @@
   <a href="#risk_control.MapieRiskControl.ref_param" class="md-nav__link">
     <span class="md-ellipsis">
       <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;ref_param
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#risk_control.MapieRiskControl.lambda_to_select" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;lambda_to_select
     </span>
   </a>
   
@@ -2665,7 +2708,20 @@ lambda value).</p>
 <span class="normal">584</span>
 <span class="normal">585</span>
 <span class="normal">586</span>
-<span class="normal">587</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MapieRiskControl</span><span class="p">:</span>
+<span class="normal">587</span>
+<span class="normal">588</span>
+<span class="normal">589</span>
+<span class="normal">590</span>
+<span class="normal">591</span>
+<span class="normal">592</span>
+<span class="normal">593</span>
+<span class="normal">594</span>
+<span class="normal">595</span>
+<span class="normal">596</span>
+<span class="normal">597</span>
+<span class="normal">598</span>
+<span class="normal">599</span>
+<span class="normal">600</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MapieRiskControl</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Risk control for conformal prediction.</span>
 
@@ -2791,6 +2847,7 @@ lambda value).</p>
         <span class="n">pvalue_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;clt&quot;</span><span class="p">,</span>
         <span class="n">fwer_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;sgt&quot;</span><span class="p">,</span>
         <span class="n">control_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;rmin&quot;</span><span class="p">,</span>
+        <span class="n">lambda_to_select</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the MapieRiskControl class.</span>
@@ -2851,6 +2908,8 @@ lambda value).</p>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">ref_risk</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">risks</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ref_param</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lambda_to_select</span> <span class="o">=</span> <span class="n">lambda_to_select</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_initialize_cr_results</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -2953,14 +3012,23 @@ lambda value).</p>
 
         <span class="n">y_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decision</span><span class="o">.</span><span class="n">make_prediction</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">l_value</span> <span class="ow">in</span> <span class="n">l_values</span><span class="p">:</span>
-            <span class="n">new_decision</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone_decision_with_params</span><span class="p">(</span><span class="o">**</span><span class="n">l_value</span><span class="p">)</span>
-            <span class="n">y_decision</span> <span class="o">=</span> <span class="n">new_decision</span><span class="o">.</span><span class="n">make_decision</span><span class="p">(</span><span class="n">y_output</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lambda_to_select</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_to_select</span><span class="p">(</span><span class="n">l_value</span><span class="p">):</span>
+                <span class="n">new_decision</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone_decision_with_params</span><span class="p">(</span><span class="o">**</span><span class="n">l_value</span><span class="p">)</span>
+                <span class="n">y_decision</span> <span class="o">=</span> <span class="n">new_decision</span><span class="o">.</span><span class="n">make_decision</span><span class="p">(</span><span class="n">y_output</span><span class="p">)</span>
 
-            <span class="k">for</span> <span class="n">name_</span><span class="p">,</span> <span class="n">risk_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">risks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="n">risks</span> <span class="o">=</span> <span class="n">risk_</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">y_decision</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-                <span class="n">cr_results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;risks.</span><span class="si">{</span><span class="n">name_</span><span class="si">}</span><span class="s2">.values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">risks</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
-                <span class="n">cr_results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;risks.</span><span class="si">{</span><span class="n">name_</span><span class="si">}</span><span class="s2">.mean&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">risks</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
-                <span class="n">cr_results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;risks.</span><span class="si">{</span><span class="n">name_</span><span class="si">}</span><span class="s2">.std&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">risks</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+                <span class="k">for</span> <span class="n">name_</span><span class="p">,</span> <span class="n">risk_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">risks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">risks</span> <span class="o">=</span> <span class="n">risk_</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">y_decision</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                    <span class="n">cr_results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;risks.</span><span class="si">{</span><span class="n">name_</span><span class="si">}</span><span class="s2">.values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">risks</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+                    <span class="n">cr_results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;risks.</span><span class="si">{</span><span class="n">name_</span><span class="si">}</span><span class="s2">.mean&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">risks</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+                    <span class="n">cr_results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;risks.</span><span class="si">{</span><span class="n">name_</span><span class="si">}</span><span class="s2">.std&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">risks</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">name_</span><span class="p">,</span> <span class="n">risk_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">risks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">cr_results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;risks.</span><span class="si">{</span><span class="n">name_</span><span class="si">}</span><span class="s2">.values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))]</span>
+                    <span class="p">)</span>
+                    <span class="n">cr_results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;risks.</span><span class="si">{</span><span class="n">name_</span><span class="si">}</span><span class="s2">.mean&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+                    <span class="n">cr_results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;risks.</span><span class="si">{</span><span class="n">name_</span><span class="si">}</span><span class="s2">.std&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
 
             <span class="n">cr_results</span><span class="p">[</span><span class="s2">&quot;params&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l_value</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">l_value</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -3035,7 +3103,8 @@ lambda value).</p>
         <span class="n">p_values</span> <span class="o">=</span> <span class="n">MapieRiskControl</span><span class="o">.</span><span class="n">_valid_pvalues_method</span><span class="p">[</span><span class="n">method</span><span class="p">](</span>
             <span class="n">values</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_samples</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">p_values</span><span class="p">)</span>
+        <span class="n">p_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">p_values</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">p_values</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_control_fwer</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">p_values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">delta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="nb">str</span>
@@ -3407,7 +3476,7 @@ lambda value).</p>
   </span>
 
 </h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">target_risks</span> <span class="o">=</span> <span class="p">{</span><span class="n"><span title="risk_.name">name</span></span><span class="p">:</span> <span class="n">_gn5CLHQFj0MQCZfor</span> <span class="n"><span title="risk_">risk_</span></span> <span class="ow">in</span> <span class="n"><span title="risk_control.MapieRiskControl(self).risks.values">values</span></span><span class="p">()}</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">target_risks</span> <span class="o">=</span> <span class="p">{</span><span class="n"><span title="risk_.name">name</span></span><span class="p">:</span> <span class="n">_8a6BRStOdBdTzDfor</span> <span class="n"><span title="risk_">risk_</span></span> <span class="ow">in</span> <span class="n"><span title="risk_control.MapieRiskControl(self).risks.values">values</span></span><span class="p">()}</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -3570,6 +3639,28 @@ lambda value).</p>
 
 </div>
 
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="risk_control.MapieRiskControl.lambda_to_select" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">lambda_to_select</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">lambda_to_select</span> <span class="o">=</span> <span class="n"><span title="risk_control.MapieRiskControl(lambda_to_select)">lambda_to_select</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
 
 
 <div class="doc doc-object doc-function">
@@ -3588,7 +3679,8 @@ lambda value).</p>
     <span class="n">delta</span><span class="p">,</span>
     <span class="n">pvalue_method</span><span class="o">=</span><span class="s2">&quot;clt&quot;</span><span class="p">,</span>
     <span class="n">fwer_method</span><span class="o">=</span><span class="s2">&quot;sgt&quot;</span><span class="p">,</span>
-    <span class="n">control_method</span><span class="o">=</span><span class="s2">&quot;rmin&quot;</span>
+    <span class="n">control_method</span><span class="o">=</span><span class="s2">&quot;rmin&quot;</span><span class="p">,</span>
+    <span class="n">lambda_to_select</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">)</span>
 </code></pre></div>
 
@@ -3827,7 +3919,10 @@ lambda value).</p>
 <span class="normal">205</span>
 <span class="normal">206</span>
 <span class="normal">207</span>
-<span class="normal">208</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">decision</span><span class="p">:</span> <span class="n">BaseDecision</span><span class="p">,</span>
     <span class="n">params</span><span class="p">:</span> <span class="n">BaseParameterSpace</span><span class="p">,</span>
@@ -3837,6 +3932,7 @@ lambda value).</p>
     <span class="n">pvalue_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;clt&quot;</span><span class="p">,</span>
     <span class="n">fwer_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;sgt&quot;</span><span class="p">,</span>
     <span class="n">control_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;rmin&quot;</span><span class="p">,</span>
+    <span class="n">lambda_to_select</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initialize the MapieRiskControl class.</span>
@@ -3897,6 +3993,8 @@ lambda value).</p>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">ref_risk</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">risks</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">ref_param</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">lambda_to_select</span> <span class="o">=</span> <span class="n">lambda_to_select</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -3944,10 +4042,7 @@ lambda value).</p>
 
             <details class="quote">
               <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">210</span>
-<span class="normal">211</span>
-<span class="normal">212</span>
-<span class="normal">213</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">213</span>
 <span class="normal">214</span>
 <span class="normal">215</span>
 <span class="normal">216</span>
@@ -3966,7 +4061,10 @@ lambda value).</p>
 <span class="normal">229</span>
 <span class="normal">230</span>
 <span class="normal">231</span>
-<span class="normal">232</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_initialize_cr_results</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_initialize_cr_results</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initialize the control results dictionary.</span>
 
@@ -4067,10 +4165,7 @@ lambda value).</p>
 
             <details class="quote">
               <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">234</span>
-<span class="normal">235</span>
-<span class="normal">236</span>
-<span class="normal">237</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">237</span>
 <span class="normal">238</span>
 <span class="normal">239</span>
 <span class="normal">240</span>
@@ -4084,7 +4179,10 @@ lambda value).</p>
 <span class="normal">248</span>
 <span class="normal">249</span>
 <span class="normal">250</span>
-<span class="normal">251</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_clone_decision_with_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseDecision</span><span class="p">:</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_clone_decision_with_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseDecision</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Clone the decision object with the given parameters.</span>
 
@@ -4190,10 +4288,7 @@ lambda value).</p>
 
             <details class="quote">
               <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">253</span>
-<span class="normal">254</span>
-<span class="normal">255</span>
-<span class="normal">256</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">256</span>
 <span class="normal">257</span>
 <span class="normal">258</span>
 <span class="normal">259</span>
@@ -4211,7 +4306,10 @@ lambda value).</p>
 <span class="normal">271</span>
 <span class="normal">272</span>
 <span class="normal">273</span>
-<span class="normal">274</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_get_all_combinations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_get_all_combinations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get all combinations of parameters.</span>
 
@@ -4369,10 +4467,7 @@ The dictionary has the following structure:</p>
 
             <details class="quote">
               <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">276</span>
-<span class="normal">277</span>
-<span class="normal">278</span>
-<span class="normal">279</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">279</span>
 <span class="normal">280</span>
 <span class="normal">281</span>
 <span class="normal">282</span>
@@ -4421,7 +4516,19 @@ The dictionary has the following structure:</p>
 <span class="normal">325</span>
 <span class="normal">326</span>
 <span class="normal">327</span>
-<span class="normal">328</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_estimate_risk</span><span class="p">(</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span>
+<span class="normal">336</span>
+<span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_estimate_risk</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">l_values</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -4456,14 +4563,23 @@ The dictionary has the following structure:</p>
 
     <span class="n">y_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decision</span><span class="o">.</span><span class="n">make_prediction</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">l_value</span> <span class="ow">in</span> <span class="n">l_values</span><span class="p">:</span>
-        <span class="n">new_decision</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone_decision_with_params</span><span class="p">(</span><span class="o">**</span><span class="n">l_value</span><span class="p">)</span>
-        <span class="n">y_decision</span> <span class="o">=</span> <span class="n">new_decision</span><span class="o">.</span><span class="n">make_decision</span><span class="p">(</span><span class="n">y_output</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lambda_to_select</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_to_select</span><span class="p">(</span><span class="n">l_value</span><span class="p">):</span>
+            <span class="n">new_decision</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone_decision_with_params</span><span class="p">(</span><span class="o">**</span><span class="n">l_value</span><span class="p">)</span>
+            <span class="n">y_decision</span> <span class="o">=</span> <span class="n">new_decision</span><span class="o">.</span><span class="n">make_decision</span><span class="p">(</span><span class="n">y_output</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">name_</span><span class="p">,</span> <span class="n">risk_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">risks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">risks</span> <span class="o">=</span> <span class="n">risk_</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">y_decision</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-            <span class="n">cr_results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;risks.</span><span class="si">{</span><span class="n">name_</span><span class="si">}</span><span class="s2">.values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">risks</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
-            <span class="n">cr_results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;risks.</span><span class="si">{</span><span class="n">name_</span><span class="si">}</span><span class="s2">.mean&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">risks</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
-            <span class="n">cr_results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;risks.</span><span class="si">{</span><span class="n">name_</span><span class="si">}</span><span class="s2">.std&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">risks</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+            <span class="k">for</span> <span class="n">name_</span><span class="p">,</span> <span class="n">risk_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">risks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">risks</span> <span class="o">=</span> <span class="n">risk_</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">y_decision</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="n">cr_results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;risks.</span><span class="si">{</span><span class="n">name_</span><span class="si">}</span><span class="s2">.values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">risks</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+                <span class="n">cr_results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;risks.</span><span class="si">{</span><span class="n">name_</span><span class="si">}</span><span class="s2">.mean&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">risks</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+                <span class="n">cr_results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;risks.</span><span class="si">{</span><span class="n">name_</span><span class="si">}</span><span class="s2">.std&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">risks</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">name_</span><span class="p">,</span> <span class="n">risk_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">risks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">cr_results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;risks.</span><span class="si">{</span><span class="n">name_</span><span class="si">}</span><span class="s2">.values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))]</span>
+                <span class="p">)</span>
+                <span class="n">cr_results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;risks.</span><span class="si">{</span><span class="n">name_</span><span class="si">}</span><span class="s2">.mean&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+                <span class="n">cr_results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;risks.</span><span class="si">{</span><span class="n">name_</span><span class="si">}</span><span class="s2">.std&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
 
         <span class="n">cr_results</span><span class="p">[</span><span class="s2">&quot;params&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l_value</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">l_value</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -4594,19 +4710,7 @@ Its a dictionary with the following structure:</p>
 
             <details class="quote">
               <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">330</span>
-<span class="normal">331</span>
-<span class="normal">332</span>
-<span class="normal">333</span>
-<span class="normal">334</span>
-<span class="normal">335</span>
-<span class="normal">336</span>
-<span class="normal">337</span>
-<span class="normal">338</span>
-<span class="normal">339</span>
-<span class="normal">340</span>
-<span class="normal">341</span>
-<span class="normal">342</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">342</span>
 <span class="normal">343</span>
 <span class="normal">344</span>
 <span class="normal">345</span>
@@ -4626,7 +4730,19 @@ Its a dictionary with the following structure:</p>
 <span class="normal">359</span>
 <span class="normal">360</span>
 <span class="normal">361</span>
-<span class="normal">362</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">362</span>
+<span class="normal">363</span>
+<span class="normal">364</span>
+<span class="normal">365</span>
+<span class="normal">366</span>
+<span class="normal">367</span>
+<span class="normal">368</span>
+<span class="normal">369</span>
+<span class="normal">370</span>
+<span class="normal">371</span>
+<span class="normal">372</span>
+<span class="normal">373</span>
+<span class="normal">374</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Evaluate, for all lambda values (i.e., the grid of the decision function),</span>
 <span class="sd">    the risk values and means for the given data with respect to the decision</span>
@@ -4792,19 +4908,7 @@ Its a dictionary with the following structure:</p>
 
             <details class="quote">
               <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">364</span>
-<span class="normal">365</span>
-<span class="normal">366</span>
-<span class="normal">367</span>
-<span class="normal">368</span>
-<span class="normal">369</span>
-<span class="normal">370</span>
-<span class="normal">371</span>
-<span class="normal">372</span>
-<span class="normal">373</span>
-<span class="normal">374</span>
-<span class="normal">375</span>
-<span class="normal">376</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">376</span>
 <span class="normal">377</span>
 <span class="normal">378</span>
 <span class="normal">379</span>
@@ -4821,7 +4925,20 @@ Its a dictionary with the following structure:</p>
 <span class="normal">390</span>
 <span class="normal">391</span>
 <span class="normal">392</span>
-<span class="normal">393</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_estimate_pvalues</span><span class="p">(</span>
+<span class="normal">393</span>
+<span class="normal">394</span>
+<span class="normal">395</span>
+<span class="normal">396</span>
+<span class="normal">397</span>
+<span class="normal">398</span>
+<span class="normal">399</span>
+<span class="normal">400</span>
+<span class="normal">401</span>
+<span class="normal">402</span>
+<span class="normal">403</span>
+<span class="normal">404</span>
+<span class="normal">405</span>
+<span class="normal">406</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_estimate_pvalues</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -4850,7 +4967,8 @@ Its a dictionary with the following structure:</p>
     <span class="n">p_values</span> <span class="o">=</span> <span class="n">MapieRiskControl</span><span class="o">.</span><span class="n">_valid_pvalues_method</span><span class="p">[</span><span class="n">method</span><span class="p">](</span>
         <span class="n">values</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_samples</span>
     <span class="p">)</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">p_values</span><span class="p">)</span>
+    <span class="n">p_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">p_values</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p_values</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -4984,20 +5102,7 @@ Its a dictionary with the following structure:</p>
 
             <details class="quote">
               <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">395</span>
-<span class="normal">396</span>
-<span class="normal">397</span>
-<span class="normal">398</span>
-<span class="normal">399</span>
-<span class="normal">400</span>
-<span class="normal">401</span>
-<span class="normal">402</span>
-<span class="normal">403</span>
-<span class="normal">404</span>
-<span class="normal">405</span>
-<span class="normal">406</span>
-<span class="normal">407</span>
-<span class="normal">408</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">408</span>
 <span class="normal">409</span>
 <span class="normal">410</span>
 <span class="normal">411</span>
@@ -5017,7 +5122,20 @@ Its a dictionary with the following structure:</p>
 <span class="normal">425</span>
 <span class="normal">426</span>
 <span class="normal">427</span>
-<span class="normal">428</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_control_fwer</span><span class="p">(</span>
+<span class="normal">428</span>
+<span class="normal">429</span>
+<span class="normal">430</span>
+<span class="normal">431</span>
+<span class="normal">432</span>
+<span class="normal">433</span>
+<span class="normal">434</span>
+<span class="normal">435</span>
+<span class="normal">436</span>
+<span class="normal">437</span>
+<span class="normal">438</span>
+<span class="normal">439</span>
+<span class="normal">440</span>
+<span class="normal">441</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_control_fwer</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">p_values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">delta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -5085,20 +5203,7 @@ and their corresponding risks (<code>valid_risks</code>).</li>
 
             <details class="quote">
               <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">430</span>
-<span class="normal">431</span>
-<span class="normal">432</span>
-<span class="normal">433</span>
-<span class="normal">434</span>
-<span class="normal">435</span>
-<span class="normal">436</span>
-<span class="normal">437</span>
-<span class="normal">438</span>
-<span class="normal">439</span>
-<span class="normal">440</span>
-<span class="normal">441</span>
-<span class="normal">442</span>
-<span class="normal">443</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">443</span>
 <span class="normal">444</span>
 <span class="normal">445</span>
 <span class="normal">446</span>
@@ -5147,7 +5252,20 @@ and their corresponding risks (<code>valid_risks</code>).</li>
 <span class="normal">489</span>
 <span class="normal">490</span>
 <span class="normal">491</span>
-<span class="normal">492</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">492</span>
+<span class="normal">493</span>
+<span class="normal">494</span>
+<span class="normal">495</span>
+<span class="normal">496</span>
+<span class="normal">497</span>
+<span class="normal">498</span>
+<span class="normal">499</span>
+<span class="normal">500</span>
+<span class="normal">501</span>
+<span class="normal">502</span>
+<span class="normal">503</span>
+<span class="normal">504</span>
+<span class="normal">505</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Test all hypotheses and identify valid lambda values that control the</span>
 <span class="sd">    risk and family-wise error rate. The procedure is as follows:</span>
@@ -5263,20 +5381,7 @@ and their corresponding risks (<code>valid_risks</code>).</li>
 
             <details class="quote">
               <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">494</span>
-<span class="normal">495</span>
-<span class="normal">496</span>
-<span class="normal">497</span>
-<span class="normal">498</span>
-<span class="normal">499</span>
-<span class="normal">500</span>
-<span class="normal">501</span>
-<span class="normal">502</span>
-<span class="normal">503</span>
-<span class="normal">504</span>
-<span class="normal">505</span>
-<span class="normal">506</span>
-<span class="normal">507</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">507</span>
 <span class="normal">508</span>
 <span class="normal">509</span>
 <span class="normal">510</span>
@@ -5291,7 +5396,20 @@ and their corresponding risks (<code>valid_risks</code>).</li>
 <span class="normal">519</span>
 <span class="normal">520</span>
 <span class="normal">521</span>
-<span class="normal">522</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">control</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">522</span>
+<span class="normal">523</span>
+<span class="normal">524</span>
+<span class="normal">525</span>
+<span class="normal">526</span>
+<span class="normal">527</span>
+<span class="normal">528</span>
+<span class="normal">529</span>
+<span class="normal">530</span>
+<span class="normal">531</span>
+<span class="normal">532</span>
+<span class="normal">533</span>
+<span class="normal">534</span>
+<span class="normal">535</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">control</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Control the risk based on the specified method. The procedure is as follows:</span>
 
@@ -5436,20 +5554,7 @@ and their corresponding risks (<code>valid_risks</code>).</li>
 
             <details class="quote">
               <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">524</span>
-<span class="normal">525</span>
-<span class="normal">526</span>
-<span class="normal">527</span>
-<span class="normal">528</span>
-<span class="normal">529</span>
-<span class="normal">530</span>
-<span class="normal">531</span>
-<span class="normal">532</span>
-<span class="normal">533</span>
-<span class="normal">534</span>
-<span class="normal">535</span>
-<span class="normal">536</span>
-<span class="normal">537</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">537</span>
 <span class="normal">538</span>
 <span class="normal">539</span>
 <span class="normal">540</span>
@@ -5462,7 +5567,20 @@ and their corresponding risks (<code>valid_risks</code>).</li>
 <span class="normal">547</span>
 <span class="normal">548</span>
 <span class="normal">549</span>
-<span class="normal">550</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="normal">550</span>
+<span class="normal">551</span>
+<span class="normal">552</span>
+<span class="normal">553</span>
+<span class="normal">554</span>
+<span class="normal">555</span>
+<span class="normal">556</span>
+<span class="normal">557</span>
+<span class="normal">558</span>
+<span class="normal">559</span>
+<span class="normal">560</span>
+<span class="normal">561</span>
+<span class="normal">562</span>
+<span class="normal">563</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Fit the decision model on the input data, i.e.:</span>
 
@@ -5567,21 +5685,21 @@ and their corresponding risks (<code>valid_risks</code>).</li>
 
             <details class="quote">
               <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">552</span>
-<span class="normal">553</span>
-<span class="normal">554</span>
-<span class="normal">555</span>
-<span class="normal">556</span>
-<span class="normal">557</span>
-<span class="normal">558</span>
-<span class="normal">559</span>
-<span class="normal">560</span>
-<span class="normal">561</span>
-<span class="normal">562</span>
-<span class="normal">563</span>
-<span class="normal">564</span>
-<span class="normal">565</span>
-<span class="normal">566</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">565</span>
+<span class="normal">566</span>
+<span class="normal">567</span>
+<span class="normal">568</span>
+<span class="normal">569</span>
+<span class="normal">570</span>
+<span class="normal">571</span>
+<span class="normal">572</span>
+<span class="normal">573</span>
+<span class="normal">574</span>
+<span class="normal">575</span>
+<span class="normal">576</span>
+<span class="normal">577</span>
+<span class="normal">578</span>
+<span class="normal">579</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Make predictions on the input data.</span>
 
@@ -5620,26 +5738,26 @@ and their corresponding risks (<code>valid_risks</code>).</li>
 
             <details class="quote">
               <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">568</span>
-<span class="normal">569</span>
-<span class="normal">570</span>
-<span class="normal">571</span>
-<span class="normal">572</span>
-<span class="normal">573</span>
-<span class="normal">574</span>
-<span class="normal">575</span>
-<span class="normal">576</span>
-<span class="normal">577</span>
-<span class="normal">578</span>
-<span class="normal">579</span>
-<span class="normal">580</span>
-<span class="normal">581</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">581</span>
 <span class="normal">582</span>
 <span class="normal">583</span>
 <span class="normal">584</span>
 <span class="normal">585</span>
 <span class="normal">586</span>
-<span class="normal">587</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">587</span>
+<span class="normal">588</span>
+<span class="normal">589</span>
+<span class="normal">590</span>
+<span class="normal">591</span>
+<span class="normal">592</span>
+<span class="normal">593</span>
+<span class="normal">594</span>
+<span class="normal">595</span>
+<span class="normal">596</span>
+<span class="normal">597</span>
+<span class="normal">598</span>
+<span class="normal">599</span>
+<span class="normal">600</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Print a summary of the risk control results.</span>
 <span class="sd">    &quot;&quot;&quot;</span>

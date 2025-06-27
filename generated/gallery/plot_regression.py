@@ -19,12 +19,12 @@ import numpy as np
 from risk_control import MapieRiskControl
 from risk_control.decision import SelectiveRegression
 from risk_control.plot import plot_p_values, plot_risk_curve
-from risk_control.risk import BaseRisk, MSERisk, RatioPredictionRisk
+from risk_control.risk import AbstentionRisk, BaseRisk, MSERisk
 from utils.data import get_data_regression
 from utils.model import get_model_regression
 
 random_state = 42
-np.random.seed(42)
+np.random.seed(random_state)
 
 ##################################################
 # First, we load the data and train a model.
@@ -59,7 +59,7 @@ print(f"Mean MSE: {np.nanmean((clf.predict(X_test) - y_test)**2):.2f}")
 parameter_range = np.linspace(0.05, 5.0, 100)
 
 decision: BaseDecision = SelectiveRegression(estimator=clf, residual=res)
-risks: list[BaseRisk] = [MSERisk(0.6, mse_max=mse_max), RatioPredictionRisk(0.2)]
+risks: list[BaseRisk] = [MSERisk(0.6, mse_max=mse_max), AbstentionRisk(0.2)]
 params: BaseParameterSpace = {"threshold": parameter_range}
 
 clf_mapie = MapieRiskControl(

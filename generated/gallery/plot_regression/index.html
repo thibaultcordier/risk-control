@@ -12,6 +12,8 @@
         <link rel="prev" href="../plot_classification_bis/">
       
       
+        <link rel="next" href="../plot_ai_assistance/">
+      
       
       <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
@@ -816,6 +818,8 @@
       
         
       
+        
+      
     
     
     
@@ -943,6 +947,29 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plot_ai_assistance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Selective (Binary) Classification for Human-AI Collaboration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1016,12 +1043,12 @@ to download the full example code</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">risk_control</span><span class="w"> </span><span class="kn">import</span> <span class="n">MapieRiskControl</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.decision</span><span class="w"> </span><span class="kn">import</span> <span class="n">SelectiveRegression</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.plot</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_p_values</span><span class="p">,</span> <span class="n">plot_risk_curve</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.risk</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseRisk</span><span class="p">,</span> <span class="n">MSERisk</span><span class="p">,</span> <span class="n">RatioPredictionRisk</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.risk</span><span class="w"> </span><span class="kn">import</span> <span class="n">AbstentionRisk</span><span class="p">,</span> <span class="n">BaseRisk</span><span class="p">,</span> <span class="n">MSERisk</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_data_regression</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">utils.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_model_regression</span>
 
 <span class="n">random_state</span> <span class="o">=</span> <span class="mi">42</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
 </code></pre></div>
 <!-- GENERATED FROM PYTHON SOURCE LINES 30-31 -->
 
@@ -1061,7 +1088,7 @@ target performance instead of the target risk).</li>
 <div class="highlight"><pre><span></span><code><span class="n">parameter_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 
 <span class="n">decision</span><span class="p">:</span> <span class="n">BaseDecision</span> <span class="o">=</span> <span class="n">SelectiveRegression</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">clf</span><span class="p">,</span> <span class="n">residual</span><span class="o">=</span><span class="n">res</span><span class="p">)</span>
-<span class="n">risks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">BaseRisk</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">MSERisk</span><span class="p">(</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">mse_max</span><span class="o">=</span><span class="n">mse_max</span><span class="p">),</span> <span class="n">RatioPredictionRisk</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)]</span>
+<span class="n">risks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">BaseRisk</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">MSERisk</span><span class="p">(</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">mse_max</span><span class="o">=</span><span class="n">mse_max</span><span class="p">),</span> <span class="n">AbstentionRisk</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)]</span>
 <span class="n">params</span><span class="p">:</span> <span class="n">BaseParameterSpace</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;threshold&quot;</span><span class="p">:</span> <span class="n">parameter_range</span><span class="p">}</span>
 
 <span class="n">clf_mapie</span> <span class="o">=</span> <span class="n">MapieRiskControl</span><span class="p">(</span>
@@ -1088,7 +1115,7 @@ p<span class="o">(</span>risk&lt;<span class="o">=</span>alpha<span class="o">)<
 <span class="m">1</span>-delta:<span class="w"> </span><span class="m">0</span>.90
 <span class="o">===</span><span class="w"> </span><span class="nv">risks</span><span class="w"> </span><span class="o">===</span>
 mse<span class="w">     </span><span class="p">|</span><span class="w"> </span>optimal:<span class="w"> </span><span class="m">0</span>.53<span class="w"> </span><span class="p">|</span><span class="w"> </span>alpha:<span class="w"> </span><span class="m">0</span>.6
-pred_ratio<span class="w">      </span><span class="p">|</span><span class="w"> </span>optimal:<span class="w"> </span><span class="m">0</span>.83<span class="w"> </span><span class="p">|</span><span class="w"> </span>alpha:<span class="w"> </span><span class="m">0</span>.8
+abstension<span class="w">      </span><span class="p">|</span><span class="w"> </span>optimal:<span class="w"> </span><span class="m">0</span>.17<span class="w"> </span><span class="p">|</span><span class="w"> </span>alpha:<span class="w"> </span><span class="m">0</span>.2
 <span class="o">===</span><span class="w"> </span><span class="nv">params</span><span class="w"> </span><span class="o">===</span>
 threshold<span class="w">       </span><span class="p">|</span><span class="w"> </span>optimal:<span class="w"> </span><span class="m">0</span>.90
 </code></pre></div>
@@ -1099,7 +1126,7 @@ threshold<span class="w">       </span><span class="p">|</span><span class="w"> 
 
 <div class="highlight"><pre><span></span><code><span class="n">plot_risk_curve</span><span class="p">(</span><span class="n">clf_mapie</span><span class="p">)</span>
 </code></pre></div>
-<p><img alt="lambda vs. mse, lambda vs. pred_ratio" class="mkd-glr-single-img" src="../images/mkd_glr_plot_regression_001.png" srcset="../images/mkd_glr_plot_regression_001.png" /></p>
+<p><img alt="lambda vs. mse, lambda vs. abstension" class="mkd-glr-single-img" src="../images/mkd_glr_plot_regression_001.png" srcset="../images/mkd_glr_plot_regression_001.png" /></p>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>/Users/thibaultcordier/VSCodeProjects/mapie-experiments/RiskControl/risk_control/plot.py:144:<span class="w"> </span>UserWarning:<span class="w"> </span>FigureCanvasAgg<span class="w"> </span>is<span class="w"> </span>non-interactive,<span class="w"> </span>and<span class="w"> </span>thus<span class="w"> </span>cannot<span class="w"> </span>be<span class="w"> </span>shown
 <span class="w">  </span>plt.show<span class="o">()</span>
@@ -1133,11 +1160,11 @@ We can check that the risks are controlled at the given levels.</p>
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>mse:<span class="w"> </span><span class="m">0</span>.55
-pred_ratio:<span class="w"> </span><span class="m">0</span>.84
+abstension:<span class="w"> </span><span class="m">0</span>.16
 <span class="m">0</span>.3096934191981804
 <span class="m">0</span>.3096934191981804
 </code></pre></div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  1.024 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  1.173 seconds)</p>
 <div id="download_links"></div>
 
 <p><a class="md-button center" href="../plot_regression.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v242.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48"/></svg></span> Download Python source code: plot_regression.py</a></p>
@@ -1193,6 +1220,22 @@ pred_ratio:<span class="w"> </span><span class="m">0</span>.84
             </div>
           </a>
         
+        
+          
+          <a href="../plot_ai_assistance/" class="md-footer__link md-footer__link--next" aria-label="Next: Selective (Binary) Classification for Human-AI Collaboration">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Selective (Binary) Classification for Human-AI Collaboration
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
         
       </nav>
     

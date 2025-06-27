@@ -17,14 +17,20 @@ sys.path.append(basedir)
 
 import numpy as np
 from risk_control import MapieRiskControl
-from risk_control.decision import MultiSelectiveClassification
+from risk_control.decision import BestClassification, StandardClassification
 from risk_control.plot import plot_p_values, plot_risk_curve
-from risk_control.risk import AccuracyRisk, BaseRisk, CoverageRisk, RatioPredictionRisk
+from risk_control.risk import (
+    AbstentionRisk,
+    BaseRisk,
+    CoverageRisk,
+    FalseDiscoveryRisk,
+    NonUniqueCandidateRisk,
+)
 from utils.data import get_data_classification
 from utils.model import get_model_classification
 
 random_state = 42
-np.random.seed(42)
+np.random.seed(random_state)
 
 ##################################################
 # First, we load the data and train a model.
@@ -46,14 +52,12 @@ clf = get_model_classification(X_train, y_train)
 # - The `MultiSelectiveClassification` decision is a selective classification decision. In practice, it is a
 # classification model with a threshold on any class confidence score. If the class confidence score is above
 # the threshold, the class is put in the prediction set, otherwise it is not. The threshold is the parameter to tune.
-# - The `AccuracyRisk` risk is the accuracy risk. We want the accuracy to be controlled at a given level
-# (here 0.2, TODO: report the target performance instead of the target risk).
-# - The `RatioPredictionRisk` risk is the ratio prediction risk. It is the ratio of accepted predictions.
-# We want the ratio of predictions to be controlled at a given level (here 0.3, TODO: report the
-# target performance instead of the target risk).
 # - The `CoverageRisk` risk is the coverage risk. It is the ratio of predictions containing the true label.
 # We want the coverage to be controlled at a given level (here 0.5, TODO: report the target performance
 # instead of the target risk).
+# - The `RatioPredictionRisk` risk is the ratio prediction risk. It is the ratio of accepted predictions.
+# We want the ratio of predictions to be controlled at a given level (here 0.3, TODO: report the
+# target performance instead of the target risk).
 #
 # We want to find the valid thresholds that control the risks at the given levels with a confidence level
 # (here 0.9, TODO: report the confidence level instead of the delta).
@@ -61,18 +65,21 @@ clf = get_model_classification(X_train, y_train)
 # Among the valid thresholds, we want to find the one that maximizes the `AccuracyRisk` risk
 # (beause it is the first risk in the list of risks and `control_method="lmin"`).
 
-parameter_range = np.arange(-1.0, 5.0, 0.1)
+decision: BaseDecision = StandardClassification(estimator=clf)
 
-decision: BaseDecision = MultiSelectiveClassification(estimator=clf)
-risks: list[BaseRisk] = [AccuracyRisk(0.2), RatioPredictionRisk(0.3), CoverageRisk(0.5)]
-params: BaseParameterSpace = {"threshold": parameter_range}  # , "toto": parameter_range}
+risks: list[BaseRisk] = [
+    CoverageRisk(0.2),
+    FalseDiscoveryRisk(0.2),
+    NonUniqueCandidateRisk(0.4),
+]
+params: BaseParameterSpace = {"threshold": np.arange(-1.0, 5.0, 0.1)}
 
 clf_mapie = MapieRiskControl(
     decision=decision,
     risks=risks,
     params=params,
     delta=0.1,
-    control_method="lmin",
+    control_method="rmin",
 )
 
 ##################################################

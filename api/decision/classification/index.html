@@ -572,15 +572,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#decision.classification.BaseClassificationDecision.toto" class="md-nav__link">
-    <span class="md-ellipsis">
-      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;toto
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#decision.classification.BaseClassificationDecision.predict_mode" class="md-nav__link">
     <span class="md-ellipsis">
       <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;predict_mode
@@ -946,6 +937,8 @@
       
         
       
+        
+      
     
     
     
@@ -1060,6 +1053,29 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../generated/gallery/plot_ai_assistance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Selective (Binary) Classification for Human-AI Collaboration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1116,15 +1132,6 @@
   <a href="#decision.classification.BaseClassificationDecision.threshold" class="md-nav__link">
     <span class="md-ellipsis">
       <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;threshold
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#decision.classification.BaseClassificationDecision.toto" class="md-nav__link">
-    <span class="md-ellipsis">
-      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;toto
     </span>
   </a>
   
@@ -1242,11 +1249,7 @@
 
 </h2>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">BaseClassificationDecision</span><span class="p">(</span>
-    <span class="n">estimator</span><span class="p">,</span>
-    <span class="o">*</span><span class="p">,</span>
-    <span class="n">threshold</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
-    <span class="n">toto</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
-    <span class="n">predict_mode</span><span class="o">=</span><span class="s2">&quot;score&quot;</span>
+    <span class="n">estimator</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">predict_mode</span><span class="o">=</span><span class="s2">&quot;score&quot;</span>
 <span class="p">)</span>
 </code></pre></div>
 
@@ -1439,19 +1442,15 @@ predict the output values.</p>
 <span class="normal">49</span>
 <span class="normal">50</span>
 <span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">estimator</span><span class="p">:</span> <span class="n">BaseEstimator</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
-    <span class="n">toto</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
     <span class="n">predict_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;score&quot;</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">estimator</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span> <span class="o">=</span> <span class="n">threshold</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">toto</span> <span class="o">=</span> <span class="n">toto</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">predict_mode</span> <span class="o">=</span> <span class="n">predict_mode</span>
 </code></pre></div></td></tr></table></div>
                   </details>
@@ -1480,28 +1479,6 @@ predict the output values.</p>
 
 </h3>
 <div class="doc-signature highlight"><pre><span></span><code><span class="n">threshold</span> <span class="o">=</span> <span class="n"><span title="decision.classification.BaseClassificationDecision(threshold)">threshold</span></span>
-</code></pre></div>
-
-    <div class="doc doc-contents ">
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h3 id="decision.classification.BaseClassificationDecision.toto" class="doc doc-heading">
-            <span class="doc doc-object-name doc-attribute-name">toto</span>
-
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
-  </span>
-
-</h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">toto</span> <span class="o">=</span> <span class="n"><span title="decision.classification.BaseClassificationDecision(toto)">toto</span></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1575,7 +1552,9 @@ predict the output values.</p>
 
             <details class="quote">
               <summary>Source code in <code>risk_control/decision/classification.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">56</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
 <span class="normal">57</span>
 <span class="normal">58</span>
 <span class="normal">59</span>
@@ -1585,10 +1564,7 @@ predict the output values.</p>
 <span class="normal">63</span>
 <span class="normal">64</span>
 <span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the parameters of the estimator.</span>
 
@@ -1599,7 +1575,6 @@ predict the output values.</p>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_params</span><span class="p">()</span> <span class="o">|</span> <span class="p">{</span>
         <span class="s2">&quot;threshold&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span><span class="p">,</span>
-        <span class="s2">&quot;toto&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">toto</span><span class="p">,</span>
         <span class="s2">&quot;predict_mode&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict_mode</span><span class="p">,</span>
     <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
@@ -1684,7 +1659,10 @@ predict the output values.</p>
 
             <details class="quote">
               <summary>Source code in <code>risk_control/decision/classification.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">71</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
 <span class="normal">72</span>
 <span class="normal">73</span>
 <span class="normal">74</span>
@@ -1707,10 +1685,7 @@ predict the output values.</p>
 <span class="normal">91</span>
 <span class="normal">92</span>
 <span class="normal">93</span>
-<span class="normal">94</span>
-<span class="normal">95</span>
-<span class="normal">96</span>
-<span class="normal">97</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">make_prediction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="normal">94</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">make_prediction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Predict the output values based on the input data.</span>
 
