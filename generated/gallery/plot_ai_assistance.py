@@ -1,7 +1,7 @@
 """
 # Selective (Binary) Classification for Human-AI Collaboration
 
-This example shows how to use the `SelectiveClassification` and `MapieRiskControl` classes to perform selective classification.
+This example shows how to use the `SelectiveClassification` and `RiskController` classes to perform selective classification.
 
 In which use case? When you want to assist a human decision-maker with a machine learning model.
 
@@ -26,7 +26,7 @@ basedir = os.path.abspath(os.path.join(os.path.curdir, "."))
 sys.path.append(basedir)
 
 import numpy as np
-from risk_control import MapieRiskControl
+from risk_control import RiskController
 from risk_control.decision import SelectiveClassification
 from risk_control.plot import plot_p_values, plot_risk_curve
 from risk_control.risk import (
@@ -161,12 +161,11 @@ def lambda_to_select(l_value):
     return pmin <= pmax
 
 
-clf_mapie = MapieRiskControl(
+controller = RiskController(
     decision=decision,
     risks=risks,
     params=params,
     delta=0.1,
-    control_method="rmin",
     lambda_to_select=lambda_to_select,
 )
 
@@ -176,25 +175,25 @@ clf_mapie = MapieRiskControl(
 #
 # A summary of the results is printed that contains the optimal threshold and the corresponding risks.
 
-clf_mapie.fit(X_calib, y_calib)
-clf_mapie.summary()
+controller.fit(X_calib, y_calib)
+controller.summary()
 
 ##################################################
 # We can plot the risk curves for each risk.
 
-plot_risk_curve(clf_mapie)
+plot_risk_curve(controller)
 
 ##################################################
 # We can also plot the p-values for each multiple tests (parameter space).
 
-plot_p_values(clf_mapie)
+plot_p_values(controller)
 
 ##################################################
 # Finally, we can use the optimal threshold to predict on the test set and compute the risks.
 # The risks are computed on the test set and converted to performance metrics.
 # We can check that the risks are controlled at the given levels.
 
-y_pred = clf_mapie.predict(X_test)
+y_pred = controller.predict(X_test)
 for risk in risks:
     risk_array = risk.compute(y_pred, y_test)
     ratio = risk.convert_to_performance(np.nanmean(risk_array))

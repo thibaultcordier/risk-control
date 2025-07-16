@@ -1,7 +1,7 @@
 """
 # Selective Classification
 
-This example shows how to use the `SelectiveClassification` and `MapieRiskControl` classes to perform selective classification.
+This example shows how to use the `SelectiveClassification` and `RiskController` classes to perform selective classification.
 """
 
 import os
@@ -16,7 +16,7 @@ basedir = os.path.abspath(os.path.join(os.path.curdir, "."))
 sys.path.append(basedir)
 
 import numpy as np
-from risk_control import MapieRiskControl
+from risk_control import RiskController
 from risk_control.decision import SelectiveClassification
 from risk_control.plot import plot_p_values, plot_risk_curve
 from risk_control.risk import AbstentionRisk, BaseRisk, CoverageRisk, FalseDiscoveryRisk
@@ -40,7 +40,7 @@ clf = get_model_classification(X_train, y_train)
 ##################################################
 # Here, we define the decision, the risks, and the parameter space.
 #
-# We use the `SelectiveClassification` decision, the `AccuracyRisk`, `RatioPredictionRisk`
+# We use the `SelectiveClassification` decision, the `AccuracyRisk`, `AbstentionRisk`
 # and `CoverageRisk` risks.
 #
 # - The `SelectiveClassification` decision is a selective classification decision. In practice, it is a
@@ -49,7 +49,7 @@ clf = get_model_classification(X_train, y_train)
 # - The `CoverageRisk` risk is the coverage risk. It is the ratio of predictions containing the true label.
 # We want the coverage to be controlled at a given level (here 0.5, TODO: report the target performance
 # instead of the target risk). Here, the False Discovery Risk is the opposite of the coverage risk.
-# - The `RatioPredictionRisk` risk is the ratio prediction risk. It is the ratio of accepted predictions.
+# - The `AbstentionRisk` risk is the ratio prediction risk. It is the ratio of accepted predictions.
 # We want the ratio of predictions to be controlled at a given level (here 0.3, TODO: report the
 # target performance instead of the target risk).
 #
@@ -63,12 +63,11 @@ decision: BaseDecision = SelectiveClassification(estimator=clf)
 risks: list[BaseRisk] = [CoverageRisk(0.2), FalseDiscoveryRisk(0.2), AbstentionRisk(0.3)]
 params: BaseParameterSpace = {"threshold": np.arange(-1.0, 5.0, 0.1)}
 
-clf_mapie = MapieRiskControl(
+controller = RiskController(
     decision=decision,
     risks=risks,
     params=params,
     delta=0.1,
-    control_method="rmin",
 )
 
 ##################################################
@@ -77,25 +76,25 @@ clf_mapie = MapieRiskControl(
 #
 # A summary of the results is printed that contains the optimal threshold and the corresponding risks.
 
-clf_mapie.fit(X_cal, y_cal)
-clf_mapie.summary()
+controller.fit(X_cal, y_cal)
+controller.summary()
 
 ##################################################
 # We can plot the risk curves for each risk.
 
-plot_risk_curve(clf_mapie)
+plot_risk_curve(controller)
 
 ##################################################
 # We can also plot the p-values for each multiple tests (parameter space).
 
-plot_p_values(clf_mapie)
+plot_p_values(controller)
 
 ##################################################
 # Finally, we can use the optimal threshold to predict on the test set and compute the risks.
 # The risks are computed on the test set and converted to performance metrics.
 # We can check that the risks are controlled at the given levels.
 
-y_pred = clf_mapie.predict(X_test)
+y_pred = controller.predict(X_test)
 for risk in risks:
     ratio = risk.convert_to_performance(np.nanmean(risk.compute(y_pred, y_test)))
     print(f"{risk.name}: {ratio:.2f}")

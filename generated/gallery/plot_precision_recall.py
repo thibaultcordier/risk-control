@@ -1,7 +1,7 @@
 """
 # Precision-Recall Trade-off for Binary Classification
 
-This example shows how to use the `StandardClassification` and `MapieRiskControl`
+This example shows how to use the `StandardClassification` and `RiskController`
 classes to perform precision-recall trade-off for binary classification.
 """
 
@@ -15,9 +15,9 @@ basedir = os.path.abspath(os.path.join(os.path.curdir, "."))
 sys.path.append(basedir)
 
 import numpy as np
-from risk_control import MapieRiskControl
+from risk_control import RiskController
 from risk_control.decision.base import BaseDecision
-from risk_control.decision.decision import BinaryClassification
+from risk_control.decision.decision import BinaryDecision
 from risk_control.parameter import BaseParameterSpace
 from risk_control.plot import plot_p_values, plot_risk_curve
 from risk_control.risk import (
@@ -62,17 +62,15 @@ with warnings.catch_warnings(action="ignore"):
 ##################################################
 # Here, we define the decision, the risks, and the parameter space.
 
-decision: BaseDecision = BinaryClassification(estimator=model)
+decision: BaseDecision = BinaryDecision(estimator=model)
 risks: list[BaseRisk] = [PrecisionRisk(0.3), RecallRisk(0.3)]
-params: BaseParameterSpace = {"threshold": np.linspace(0.0, 1.0, 101)}
+params: BaseParameterSpace = {"threshold": np.linspace(-2.0, 2.0, 101)}
 
-
-clf_mapie = MapieRiskControl(
+controller = RiskController(
     decision=decision,
     risks=risks,
     params=params,
     delta=0.1,
-    control_method="rmin",
 )
 
 ##################################################
@@ -81,18 +79,18 @@ clf_mapie = MapieRiskControl(
 #
 # A summary of the results is printed that contains the optimal threshold and the corresponding risks.
 
-clf_mapie.fit(X_calib, y_calib)
-clf_mapie.summary()
+controller.fit(X_calib, y_calib)
+controller.summary()
 
 ##################################################
 # We can plot the risk curves for each risk.
 
-plot_risk_curve(clf_mapie)
+plot_risk_curve(controller)
 
 ##################################################
 # We can also plot the p-values for each multiple tests (parameter space).
 
-plot_p_values(clf_mapie)
+plot_p_values(controller)
 
 ##################################################
 # Finally, we can use the optimal threshold to predict on the test set and compute the risks.
@@ -100,6 +98,7 @@ plot_p_values(clf_mapie)
 # We can check that the risks are controlled at the given levels.
 
 from scipy.stats import norm
+
 
 def confidence_interval(array, alpha=0.05):
     n = len(array)
@@ -109,7 +108,8 @@ def confidence_interval(array, alpha=0.05):
     z = norm.ppf(1 - alpha / 2)
     return mean - z * se, mean + z * se
 
-y_pred = clf_mapie.predict(X_test)
+
+y_pred = controller.predict(X_test)
 for risk in risks:
     risk_array = risk.compute(y_pred, y_test)
     ratio = risk.convert_to_performance(np.nanmean(risk_array))

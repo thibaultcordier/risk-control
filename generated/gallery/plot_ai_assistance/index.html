@@ -1048,7 +1048,7 @@
 to download the full example code</p>
 </div>
 <h1 id="selective-binary-classification-for-human-ai-collaboration">Selective (Binary) Classification for Human-AI Collaboration</h1>
-<p>This example shows how to use the <code>SelectiveClassification</code> and <code>MapieRiskControl</code> classes to perform selective classification.</p>
+<p>This example shows how to use the <code>SelectiveClassification</code> and <code>RiskController</code> classes to perform selective classification.</p>
 <p>In which use case? When you want to assist a human decision-maker with a machine learning model.</p>
 <p>The goal is to provide a model that can make predictions only when it is confident enough to do so.
 We will identify three different scenarios:</p>
@@ -1072,7 +1072,7 @@ We will identify three different scenarios:</p>
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">basedir</span><span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">risk_control</span><span class="w"> </span><span class="kn">import</span> <span class="n">MapieRiskControl</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">risk_control</span><span class="w"> </span><span class="kn">import</span> <span class="n">RiskController</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.decision</span><span class="w"> </span><span class="kn">import</span> <span class="n">SelectiveClassification</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.plot</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_p_values</span><span class="p">,</span> <span class="n">plot_risk_curve</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.risk</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
@@ -1205,7 +1205,7 @@ We will identify three different scenarios:</p>
 <!-- GENERATED FROM PYTHON SOURCE LINES 143-144 -->
 
 <p>Here, we define the decision, the risks, and the parameter space.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 144-173 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 144-172 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">decision</span><span class="p">:</span> <span class="n">BaseDecision</span> <span class="o">=</span> <span class="n">SelectiveClassification</span><span class="p">(</span>
     <span class="n">estimator</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
@@ -1226,24 +1226,23 @@ We will identify three different scenarios:</p>
     <span class="k">return</span> <span class="n">pmin</span> <span class="o">&lt;=</span> <span class="n">pmax</span>
 
 
-<span class="n">clf_mapie</span> <span class="o">=</span> <span class="n">MapieRiskControl</span><span class="p">(</span>
+<span class="n">controller</span> <span class="o">=</span> <span class="n">RiskController</span><span class="p">(</span>
     <span class="n">decision</span><span class="o">=</span><span class="n">decision</span><span class="p">,</span>
     <span class="n">risks</span><span class="o">=</span><span class="n">risks</span><span class="p">,</span>
     <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
     <span class="n">delta</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
-    <span class="n">control_method</span><span class="o">=</span><span class="s2">&quot;rmin&quot;</span><span class="p">,</span>
     <span class="n">lambda_to_select</span><span class="o">=</span><span class="n">lambda_to_select</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 174-178 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 173-177 -->
 
 <p>Now, we fit the model and plot the results. In practice, this function will be used to find the valid
 thresholds that control the risks at the given levels with a confidence level given by the data.</p>
 <p>A summary of the results is printed that contains the optimal threshold and the corresponding risks.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 178-182 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 177-181 -->
 
-<div class="highlight"><pre><span></span><code><span class="n">clf_mapie</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_calib</span><span class="p">,</span> <span class="n">y_calib</span><span class="p">)</span>
-<span class="n">clf_mapie</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="n">controller</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_calib</span><span class="p">,</span> <span class="n">y_calib</span><span class="p">)</span>
+<span class="n">controller</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><span class="o">===</span><span class="w"> </span><span class="nv">SUMMARY</span><span class="w"> </span><span class="o">===</span>
@@ -1256,38 +1255,38 @@ abstension<span class="w">      </span><span class="p">|</span><span class="w"> 
 pmax<span class="w">    </span><span class="p">|</span><span class="w"> </span>optimal:<span class="w"> </span><span class="m">0</span>.80
 pmin<span class="w">    </span><span class="p">|</span><span class="w"> </span>optimal:<span class="w"> </span><span class="m">0</span>.20
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 183-184 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 182-183 -->
 
 <p>We can plot the risk curves for each risk.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 184-187 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 183-186 -->
 
-<div class="highlight"><pre><span></span><code><span class="n">plot_risk_curve</span><span class="p">(</span><span class="n">clf_mapie</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">plot_risk_curve</span><span class="p">(</span><span class="n">controller</span><span class="p">)</span>
 </code></pre></div>
 <p><img alt="pmax vs. pmin vs. FDR, pmax vs. pmin vs. abstension" class="mkd-glr-single-img" src="../images/mkd_glr_plot_ai_assistance_001.png" srcset="../images/mkd_glr_plot_ai_assistance_001.png" /></p>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>/Users/thibaultcordier/VSCodeProjects/mapie-experiments/RiskControl/risk_control/plot.py:194:<span class="w"> </span>UserWarning:<span class="w"> </span>FigureCanvasAgg<span class="w"> </span>is<span class="w"> </span>non-interactive,<span class="w"> </span>and<span class="w"> </span>thus<span class="w"> </span>cannot<span class="w"> </span>be<span class="w"> </span>shown
 <span class="w">  </span>plt.show<span class="o">()</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 188-189 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 187-188 -->
 
 <p>We can also plot the p-values for each multiple tests (parameter space).</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 189-192 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 188-191 -->
 
-<div class="highlight"><pre><span></span><code><span class="n">plot_p_values</span><span class="p">(</span><span class="n">clf_mapie</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">plot_p_values</span><span class="p">(</span><span class="n">controller</span><span class="p">)</span>
 </code></pre></div>
 <p><img alt="pmax vs. pmin vs. p-value" class="mkd-glr-single-img" src="../images/mkd_glr_plot_ai_assistance_002.png" srcset="../images/mkd_glr_plot_ai_assistance_002.png" /></p>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>/Users/thibaultcordier/VSCodeProjects/mapie-experiments/RiskControl/risk_control/plot.py:64:<span class="w"> </span>UserWarning:<span class="w"> </span>FigureCanvasAgg<span class="w"> </span>is<span class="w"> </span>non-interactive,<span class="w"> </span>and<span class="w"> </span>thus<span class="w"> </span>cannot<span class="w"> </span>be<span class="w"> </span>shown
 <span class="w">  </span>plt.show<span class="o">()</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 193-196 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 192-195 -->
 
 <p>Finally, we can use the optimal threshold to predict on the test set and compute the risks.
 The risks are computed on the test set and converted to performance metrics.
 We can check that the risks are controlled at the given levels.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 196-207 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 195-206 -->
 
-<div class="highlight"><pre><span></span><code><span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf_mapie</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">y_pred</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">risk</span> <span class="ow">in</span> <span class="n">risks</span><span class="p">:</span>
     <span class="n">risk_array</span> <span class="o">=</span> <span class="n">risk</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
     <span class="n">ratio</span> <span class="o">=</span> <span class="n">risk</span><span class="o">.</span><span class="n">convert_to_performance</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">risk_array</span><span class="p">))</span>
@@ -1302,7 +1301,7 @@ We can check that the risks are controlled at the given levels.</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>FDR:<span class="w"> </span><span class="m">0</span>.04<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">0</span>.09<span class="w"> </span>-<span class="w"> </span><span class="m">0</span>.00<span class="w"> </span>
 abstension:<span class="w"> </span><span class="m">0</span>.29<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">0</span>.36<span class="w"> </span>-<span class="w"> </span><span class="m">0</span>.21<span class="w"> </span>
 </code></pre></div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  0.380 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  0.386 seconds)</p>
 <div id="download_links"></div>
 
 <p><a class="md-button center" href="../plot_ai_assistance.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v242.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48"/></svg></span> Download Python source code: plot_ai_assistance.py</a></p>
