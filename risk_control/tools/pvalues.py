@@ -25,6 +25,7 @@ def compute_clt_p_values(
         Array of p-values computed using the CLT inequality.
     """
     with warnings.catch_warnings(action="ignore"):
+        n_samples = np.count_nonzero(~np.isnan(risk_values), axis=-1)
         means = np.nanmean(risk_values, axis=-1)
         stds = np.nanstd(risk_values, axis=-1)
         clt_p_values = 1 - norm.cdf((alpha - means) / stds * np.sqrt(n_samples))
@@ -52,7 +53,7 @@ def compute_hb_p_values(
     hb_p_values : np.ndarray
         Array of p-values computed using the Hoeffding-Bentkus inequality.
     """
-    n = n_samples
+    n = np.count_nonzero(~np.isnan(risk_values), axis=-1)
     risks = np.nanmean(risk_values, axis=-1)
 
     def _h(r: float, a: float) -> float:
