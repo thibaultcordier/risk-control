@@ -1,24 +1,27 @@
 """
 # Selective (Binary) Classification for Human-AI Collaboration
 
-This example shows how to use the `SelectiveClassification` and `RiskController` classes to perform selective classification.
+This example shows how to use the `SelectiveClassification` and `RiskController`
+classes to perform selective classification.
 
-In which use case? When you want to assist a human decision-maker with a machine learning model.
+In which use case? When you want to assist a human decision-maker with a machine
+learning model.
 
-The goal is to provide a model that can make predictions only when it is confident enough to do so.
-We will identify three different scenarios:
+The goal is to provide a model that can make predictions only when it is confident
+enough to do so. We will identify three different scenarios:
 
-- The model is confident enough to make a positive feedback (i.e., the model predicts a positive class and is confident enough to do so).
-- The model is confident enough to make a negative feedback (i.e., the model predicts a negative class and is confident enough to do so).
-- The model is not confident enough to make a feedback (i.e., the model abstains from making a prediction).
+- The model is confident enough to make a positive feedback (i.e., the model predicts
+a positive class and is confident enough to do so).
+- The model is confident enough to make a negative feedback (i.e., the model predicts
+a negative class and is confident enough to do so).
+- The model is not confident enough to make a feedback (i.e., the model abstains
+from making a prediction).
 """
 
 import os
 import sys
 import warnings
-
-from risk_control.decision.base import BaseDecision
-from risk_control.parameter import BaseParameterSpace
+from typing import Any, Dict, List, Tuple
 
 basedir = os.path.abspath(os.path.join(os.path.curdir, ".."))
 sys.path.append(basedir)
@@ -26,14 +29,14 @@ basedir = os.path.abspath(os.path.join(os.path.curdir, "."))
 sys.path.append(basedir)
 
 import numpy as np
+
 from risk_control import RiskController
-from risk_control.decision import SelectiveClassification
+from risk_control.decision.base import BaseDecision
+from risk_control.parameter import BaseParameterSpace
 from risk_control.plot import plot_p_values, plot_risk_curve
 from risk_control.risk import (
     AbstentionRisk,
-    AccuracyRisk,
     BaseRisk,
-    CoverageRisk,
     FalseDiscoveryRisk,
 )
 
@@ -43,7 +46,6 @@ np.random.seed(42)
 ##################################################
 # First, we load the data and train a model.
 from sklearn.datasets import load_breast_cancer
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 
@@ -83,7 +85,7 @@ print(f"Accuracy on the test set: {score:.2f}")
 from scipy.stats import norm
 
 
-def confidence_interval(array, alpha=0.05):
+def confidence_interval(array: np.ndarray, alpha: float = 0.05) -> Tuple[float, float]:
     n = len(array)
     mean = np.mean(array)
     var = np.var(array)
@@ -96,18 +98,23 @@ array = np.array(y_pred == y_test)
 score_ci = confidence_interval(array, alpha=0.1)
 print(f"Confidence interval of the accuracy: {score_ci[0]:.2f} - {score_ci[1]:.2f}")
 
-from risk_control.abstention import _abs
-
 ##################################################
 # We will define a new decision rule that will be used to make decisions.
-from risk_control.decision import SelectiveClassification
-from risk_control.decision.classification import BaseClassificationDecision
+
 from sklearn.base import BaseEstimator
+
+from risk_control.abstention import _abs
+from risk_control.decision.classification import BaseClassificationDecision
 
 
 class SelectiveClassification(BaseClassificationDecision):
     def __init__(
-        self, estimator: BaseEstimator, *, pmin: float = 0.0, pmax: float = 0.0, **kwargs
+        self,
+        estimator: BaseEstimator,
+        *,
+        pmin: float = 0.0,
+        pmax: float = 0.0,
+        **kwargs: Any,
     ) -> None:
         super().__init__(estimator=estimator, **kwargs)
         self.pmin = pmin
@@ -146,7 +153,7 @@ decision: BaseDecision = SelectiveClassification(
     estimator=model,
     predict_mode="score",
 )
-risks: list[BaseRisk] = [FalseDiscoveryRisk(0.1), AbstentionRisk(0.5)]
+risks: List[BaseRisk] = [FalseDiscoveryRisk(0.1), AbstentionRisk(0.5)]
 params: BaseParameterSpace = {
     "pmax": np.linspace(-2.0, 2.0, 21),
     "pmin": np.linspace(-2.0, 2.0, 21),
@@ -155,7 +162,7 @@ params: BaseParameterSpace = {
 }
 
 
-def lambda_to_select(l_value):
+def lambda_to_select(l_value: Dict[str, Any]) -> bool:
     pmin = l_value["pmin"]
     pmax = l_value["pmax"]
     return pmin <= pmax
@@ -170,10 +177,12 @@ controller = RiskController(
 )
 
 ##################################################
-# Now, we fit the model and plot the results. In practice, this function will be used to find the valid
-# thresholds that control the risks at the given levels with a confidence level given by the data.
+# Now, we fit the model and plot the results. In practice, this function will be
+# used to find the valid thresholds that control the risks at the given levels
+# with a confidence level given by the data.
 #
-# A summary of the results is printed that contains the optimal threshold and the corresponding risks.
+# A summary of the results is printed that contains the optimal threshold and the
+# corresponding risks.
 
 controller.fit(X_calib, y_calib)
 controller.summary()
@@ -189,9 +198,9 @@ plot_risk_curve(controller)
 plot_p_values(controller)
 
 ##################################################
-# Finally, we can use the optimal threshold to predict on the test set and compute the risks.
-# The risks are computed on the test set and converted to performance metrics.
-# We can check that the risks are controlled at the given levels.
+# Finally, we can use the optimal threshold to predict on the test set and compute
+# the risks. The risks are computed on the test set and converted to performance
+# metrics. We can check that the risks are controlled at the given levels.
 
 y_pred = controller.predict(X_test)
 for risk in risks:

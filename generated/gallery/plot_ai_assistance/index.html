@@ -1048,23 +1048,26 @@
 to download the full example code</p>
 </div>
 <h1 id="selective-binary-classification-for-human-ai-collaboration">Selective (Binary) Classification for Human-AI Collaboration</h1>
-<p>This example shows how to use the <code>SelectiveClassification</code> and <code>RiskController</code> classes to perform selective classification.</p>
-<p>In which use case? When you want to assist a human decision-maker with a machine learning model.</p>
-<p>The goal is to provide a model that can make predictions only when it is confident enough to do so.
-We will identify three different scenarios:</p>
+<p>This example shows how to use the <code>SelectiveClassification</code> and <code>RiskController</code>
+classes to perform selective classification.</p>
+<p>In which use case? When you want to assist a human decision-maker with a machine
+learning model.</p>
+<p>The goal is to provide a model that can make predictions only when it is confident
+enough to do so. We will identify three different scenarios:</p>
 <ul>
-<li>The model is confident enough to make a positive feedback (i.e., the model predicts a positive class and is confident enough to do so).</li>
-<li>The model is confident enough to make a negative feedback (i.e., the model predicts a negative class and is confident enough to do so).</li>
-<li>The model is not confident enough to make a feedback (i.e., the model abstains from making a prediction).</li>
+<li>The model is confident enough to make a positive feedback (i.e., the model predicts
+a positive class and is confident enough to do so).</li>
+<li>The model is confident enough to make a negative feedback (i.e., the model predicts
+a negative class and is confident enough to do so).</li>
+<li>The model is not confident enough to make a feedback (i.e., the model abstains
+from making a prediction).</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 15-43 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 20-46 -->
 
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.decision.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseDecision</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.parameter</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseParameterSpace</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="n">basedir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="s2">&quot;..&quot;</span><span class="p">))</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">basedir</span><span class="p">)</span>
@@ -1072,27 +1075,26 @@ We will identify three different scenarios:</p>
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">basedir</span><span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">risk_control</span><span class="w"> </span><span class="kn">import</span> <span class="n">RiskController</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.decision</span><span class="w"> </span><span class="kn">import</span> <span class="n">SelectiveClassification</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.decision.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseDecision</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.parameter</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseParameterSpace</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.plot</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_p_values</span><span class="p">,</span> <span class="n">plot_risk_curve</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.risk</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">AbstentionRisk</span><span class="p">,</span>
-    <span class="n">AccuracyRisk</span><span class="p">,</span>
     <span class="n">BaseRisk</span><span class="p">,</span>
-    <span class="n">CoverageRisk</span><span class="p">,</span>
     <span class="n">FalseDiscoveryRisk</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">random_state</span> <span class="o">=</span> <span class="mi">42</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 44-45 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 47-48 -->
 
 <p>First, we load the data and train a model.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 45-73 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 48-75 -->
 
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_breast_cancer</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
 
@@ -1119,10 +1121,10 @@ We will identify three different scenarios:</p>
     <span class="p">)</span>
     <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 74-75 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 76-77 -->
 
 <p>At this step, what are the performance of the model on the test set?</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 75-81 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 77-83 -->
 
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span>
 
@@ -1133,15 +1135,15 @@ We will identify three different scenarios:</p>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>Accuracy<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span><span class="nb">test</span><span class="w"> </span>set:<span class="w"> </span><span class="m">0</span>.93
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 82-83 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 84-85 -->
 
 <p>We propose to compute the confidence interval of the performance of the model.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 83-101 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 85-101 -->
 
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">norm</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">confidence_interval</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">confidence_interval</span><span class="p">(</span><span class="n">array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
     <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
     <span class="n">var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
@@ -1153,8 +1155,6 @@ We will identify three different scenarios:</p>
 <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_pred</span> <span class="o">==</span> <span class="n">y_test</span><span class="p">)</span>
 <span class="n">score_ci</span> <span class="o">=</span> <span class="n">confidence_interval</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Confidence interval of the accuracy: </span><span class="si">{</span><span class="n">score_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">score_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.abstention</span><span class="w"> </span><span class="kn">import</span> <span class="n">_abs</span>
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>Confidence<span class="w"> </span>interval<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>accuracy:<span class="w"> </span><span class="m">0</span>.88<span class="w"> </span>-<span class="w"> </span><span class="m">0</span>.97
@@ -1162,16 +1162,22 @@ We will identify three different scenarios:</p>
 <!-- GENERATED FROM PYTHON SOURCE LINES 102-103 -->
 
 <p>We will define a new decision rule that will be used to make decisions.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 103-142 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 103-149 -->
 
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.decision</span><span class="w"> </span><span class="kn">import</span> <span class="n">SelectiveClassification</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseEstimator</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.abstention</span><span class="w"> </span><span class="kn">import</span> <span class="n">_abs</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.decision.classification</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseClassificationDecision</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseEstimator</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">SelectiveClassification</span><span class="p">(</span><span class="n">BaseClassificationDecision</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">estimator</span><span class="p">:</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">pmin</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">pmax</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">estimator</span><span class="p">:</span> <span class="n">BaseEstimator</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">pmin</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">pmax</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">estimator</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pmin</span> <span class="o">=</span> <span class="n">pmin</span>
@@ -1202,16 +1208,16 @@ We will identify three different scenarios:</p>
 
         <span class="k">return</span> <span class="n">y_post</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 143-144 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 150-151 -->
 
 <p>Here, we define the decision, the risks, and the parameter space.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 144-172 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 151-179 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">decision</span><span class="p">:</span> <span class="n">BaseDecision</span> <span class="o">=</span> <span class="n">SelectiveClassification</span><span class="p">(</span>
     <span class="n">estimator</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
     <span class="n">predict_mode</span><span class="o">=</span><span class="s2">&quot;score&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">risks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">BaseRisk</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">FalseDiscoveryRisk</span><span class="p">(</span><span class="mf">0.1</span><span class="p">),</span> <span class="n">AbstentionRisk</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)]</span>
+<span class="n">risks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">BaseRisk</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">FalseDiscoveryRisk</span><span class="p">(</span><span class="mf">0.1</span><span class="p">),</span> <span class="n">AbstentionRisk</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)]</span>
 <span class="n">params</span><span class="p">:</span> <span class="n">BaseParameterSpace</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;pmax&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span>
     <span class="s2">&quot;pmin&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span>
@@ -1220,7 +1226,7 @@ We will identify three different scenarios:</p>
 <span class="p">}</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">lambda_to_select</span><span class="p">(</span><span class="n">l_value</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">lambda_to_select</span><span class="p">(</span><span class="n">l_value</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="n">pmin</span> <span class="o">=</span> <span class="n">l_value</span><span class="p">[</span><span class="s2">&quot;pmin&quot;</span><span class="p">]</span>
     <span class="n">pmax</span> <span class="o">=</span> <span class="n">l_value</span><span class="p">[</span><span class="s2">&quot;pmax&quot;</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">pmin</span> <span class="o">&lt;=</span> <span class="n">pmax</span>
@@ -1234,12 +1240,14 @@ We will identify three different scenarios:</p>
     <span class="n">lambda_to_select</span><span class="o">=</span><span class="n">lambda_to_select</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 173-177 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 180-186 -->
 
-<p>Now, we fit the model and plot the results. In practice, this function will be used to find the valid
-thresholds that control the risks at the given levels with a confidence level given by the data.</p>
-<p>A summary of the results is printed that contains the optimal threshold and the corresponding risks.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 177-181 -->
+<p>Now, we fit the model and plot the results. In practice, this function will be
+used to find the valid thresholds that control the risks at the given levels
+with a confidence level given by the data.</p>
+<p>A summary of the results is printed that contains the optimal threshold and the
+corresponding risks.</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 186-190 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">controller</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_calib</span><span class="p">,</span> <span class="n">y_calib</span><span class="p">)</span>
 <span class="n">controller</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
@@ -1255,36 +1263,36 @@ abstension<span class="w">      </span><span class="p">|</span><span class="w"> 
 pmax<span class="w">    </span><span class="p">|</span><span class="w"> </span>optimal:<span class="w"> </span><span class="m">0</span>.80
 pmin<span class="w">    </span><span class="p">|</span><span class="w"> </span>optimal:<span class="w"> </span><span class="m">0</span>.20
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 182-183 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 191-192 -->
 
 <p>We can plot the risk curves for each risk.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 183-186 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 192-195 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">plot_risk_curve</span><span class="p">(</span><span class="n">controller</span><span class="p">)</span>
 </code></pre></div>
 <p><img alt="pmax vs. pmin vs. FDR, pmax vs. pmin vs. abstension" class="mkd-glr-single-img" src="../images/mkd_glr_plot_ai_assistance_001.png" srcset="../images/mkd_glr_plot_ai_assistance_001.png" /></p>
 <p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>/Users/thibaultcordier/VSCodeProjects/mapie-experiments/RiskControl/risk_control/plot.py:194:<span class="w"> </span>UserWarning:<span class="w"> </span>FigureCanvasAgg<span class="w"> </span>is<span class="w"> </span>non-interactive,<span class="w"> </span>and<span class="w"> </span>thus<span class="w"> </span>cannot<span class="w"> </span>be<span class="w"> </span>shown
+<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>/Users/thibaultcordier/VSCodeProjects/mapie-experiments/RiskControl/risk_control/plot.py:201:<span class="w"> </span>UserWarning:<span class="w"> </span>FigureCanvasAgg<span class="w"> </span>is<span class="w"> </span>non-interactive,<span class="w"> </span>and<span class="w"> </span>thus<span class="w"> </span>cannot<span class="w"> </span>be<span class="w"> </span>shown
 <span class="w">  </span>plt.show<span class="o">()</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 187-188 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 196-197 -->
 
 <p>We can also plot the p-values for each multiple tests (parameter space).</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 188-191 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 197-200 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">plot_p_values</span><span class="p">(</span><span class="n">controller</span><span class="p">)</span>
 </code></pre></div>
 <p><img alt="pmax vs. pmin vs. p-value" class="mkd-glr-single-img" src="../images/mkd_glr_plot_ai_assistance_002.png" srcset="../images/mkd_glr_plot_ai_assistance_002.png" /></p>
 <p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>/Users/thibaultcordier/VSCodeProjects/mapie-experiments/RiskControl/risk_control/plot.py:64:<span class="w"> </span>UserWarning:<span class="w"> </span>FigureCanvasAgg<span class="w"> </span>is<span class="w"> </span>non-interactive,<span class="w"> </span>and<span class="w"> </span>thus<span class="w"> </span>cannot<span class="w"> </span>be<span class="w"> </span>shown
+<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>/Users/thibaultcordier/VSCodeProjects/mapie-experiments/RiskControl/risk_control/plot.py:67:<span class="w"> </span>UserWarning:<span class="w"> </span>FigureCanvasAgg<span class="w"> </span>is<span class="w"> </span>non-interactive,<span class="w"> </span>and<span class="w"> </span>thus<span class="w"> </span>cannot<span class="w"> </span>be<span class="w"> </span>shown
 <span class="w">  </span>plt.show<span class="o">()</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 192-195 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 201-204 -->
 
-<p>Finally, we can use the optimal threshold to predict on the test set and compute the risks.
-The risks are computed on the test set and converted to performance metrics.
-We can check that the risks are controlled at the given levels.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 195-206 -->
+<p>Finally, we can use the optimal threshold to predict on the test set and compute
+the risks. The risks are computed on the test set and converted to performance
+metrics. We can check that the risks are controlled at the given levels.</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 204-215 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">y_pred</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">risk</span> <span class="ow">in</span> <span class="n">risks</span><span class="p">:</span>
@@ -1301,7 +1309,7 @@ We can check that the risks are controlled at the given levels.</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>FDR:<span class="w"> </span><span class="m">0</span>.04<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">0</span>.09<span class="w"> </span>-<span class="w"> </span><span class="m">0</span>.00<span class="w"> </span>
 abstension:<span class="w"> </span><span class="m">0</span>.29<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">0</span>.36<span class="w"> </span>-<span class="w"> </span><span class="m">0</span>.21<span class="w"> </span>
 </code></pre></div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  0.386 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  0.346 seconds)</p>
 <div id="download_links"></div>
 
 <p><a class="md-button center" href="../plot_ai_assistance.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v242.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48"/></svg></span> Download Python source code: plot_ai_assistance.py</a></p>
