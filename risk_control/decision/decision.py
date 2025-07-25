@@ -1,10 +1,11 @@
-from typing import Tuple
+from typing import Any, Tuple
 
 import numpy as np
+from sklearn.base import BaseEstimator
+
 from risk_control.abstention import _abs
 from risk_control.decision.classification import BaseClassificationDecision
 from risk_control.decision.regression import AdvancedRegressionDecision
-from sklearn.base import BaseEstimator
 
 
 class SelectiveRegression(AdvancedRegressionDecision):
@@ -63,7 +64,9 @@ class SelectiveRegression(AdvancedRegressionDecision):
             the output value; otherwise, the decision is NaN.
         """
         y_pred, y_res = y_output
-        y_post = np.where(y_res <= self.threshold, y_pred, np.empty_like(y_pred) * (_abs))
+        y_post = np.where(
+            y_res <= self.threshold, y_pred, np.empty_like(y_pred) * (_abs)
+        )
         return y_post
 
 
@@ -119,7 +122,9 @@ class SelectiveClassification(BaseClassificationDecision):
 
         y_idx = np.argmax(y_output, axis=-1)
         y_score = np.max(y_output, axis=-1)
-        y_post = np.where(y_score >= self.threshold, y_idx, np.empty_like(y_idx) * (_abs))
+        y_post = np.where(
+            y_score >= self.threshold, y_idx, np.empty_like(y_idx) * (_abs)
+        )
 
         return y_post
 
@@ -223,7 +228,7 @@ class MultiLabelDecision(BaseClassificationDecision):
     """
 
     def __init__(
-        self, estimator: BaseEstimator, *, predict_output: str = "set", **kwargs
+        self, estimator: BaseEstimator, *, predict_output: str = "set", **kwargs: Any
     ):
         super().__init__(estimator, **kwargs)
         self.predict_output = predict_output
@@ -291,7 +296,7 @@ class BinaryDecision(BaseClassificationDecision):
         estimator: BaseEstimator,
         *,
         predict_output: str = "class",
-        **kwargs,
+        **kwargs: Any,
     ):
         super().__init__(estimator, **kwargs)
         self.predict_output = predict_output

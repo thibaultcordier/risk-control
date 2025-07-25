@@ -1,8 +1,10 @@
 from abc import ABC
+from typing import Any, Dict
 
 import numpy as np
-from risk_control.decision.base import BaseDecision
 from sklearn.base import BaseEstimator
+
+from risk_control.decision.base import BaseDecision
 
 
 class BaseClassificationDecision(BaseDecision, ABC):
@@ -51,7 +53,7 @@ class BaseClassificationDecision(BaseDecision, ABC):
         self.threshold = threshold
         self.predict_mode = predict_mode
 
-    def get_params(self):
+    def get_params(self) -> Dict[str, Any]:
         """
         Get the parameters of the estimator.
 
@@ -60,7 +62,7 @@ class BaseClassificationDecision(BaseDecision, ABC):
         params : dict
             The parameters of the estimator.
         """
-        return super().get_params() | {
+        return {
             "threshold": self.threshold,
             "predict_mode": self.predict_mode,
         }

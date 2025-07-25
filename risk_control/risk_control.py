@@ -8,13 +8,18 @@ risk of conformal prediction.
 import warnings
 from copy import deepcopy
 from itertools import product
-from typing import Any, Optional, Union
+from typing import Any, Callable, Dict, List, Optional, Self, Tuple, Union
 
 import numpy as np
+
 from risk_control.decision import BaseDecision
 from risk_control.parameter import BaseParameterSpace
 from risk_control.risk import BaseRisk
-from risk_control.tools.fwer_control import fwer_bonferroni, fwer_sgt, fwer_sgt_nd
+from risk_control.tools.fwer_control import (
+    fwer_bonferroni,
+    fwer_sgt,
+    fwer_sgt_nd,
+)
 from risk_control.tools.pvalues import compute_clt_p_values, compute_hb_p_values
 
 # TODO: from sklearn import clone
@@ -68,7 +73,7 @@ class RiskController:
     params: BaseParameterSpace
         The parameter space of the decision.
         (The possible values of the lambda values).
-    risks : dict[str, BaseRisk]
+    risks : Dict[str, BaseRisk]
         The risks to be controlled.
     delta : float
         The desired error rate (see family-wise error rate method).
@@ -80,7 +85,7 @@ class RiskController:
         The method to choose the lambda value to control the risk.
     _n_samples : int
         The number of samples.
-    l_values : list[dict]
+    l_values : List[dict]
         The list of lambda values (flattened parameter space).
     cr_results : dict
         A dictionary containing the risk values for each lambda value.
@@ -95,7 +100,7 @@ class RiskController:
         - f"params.{key}" Additional keys for each parameter in the parameter space.
     valid_lambdas : np.ndarray
         The valid lambda values (for which the p-value is less than alpha).
-    valid_risks : dict[str, np.ndarray]
+    valid_risks : Dict[str, np.ndarray]
         The valid risk values (for which the p-value is less than alpha)
         (keys are the risk names).
     l_star : float
@@ -111,21 +116,21 @@ class RiskController:
     _valid_control_method : dict
         The valid control methods (defining the criteria for selecting the optimal
         lambda value).
-    """
+    """  # noqa: E501
 
-    _valid_pvalues_method = {
+    _valid_pvalues_method: dict[str, Callable[[np.ndarray, float, int], np.ndarray]] = {
         "clt": compute_clt_p_values,
         "hb": compute_hb_p_values,
     }
 
-    _valid_fwer_method = {
+    _valid_fwer_method: Dict[str, Callable] = {  # type: ignore
         "standard": fwer_bonferroni,
         # TODO: fixed sequence testing
         "sgt_old": fwer_sgt,
         "sgt": fwer_sgt_nd,
     }
 
-    _valid_control_method = {
+    _valid_control_method: Dict[str, Callable] = {  # type: ignore
         "lmin": lambda self: np.argmin(
             [elt[self.ref_param] for elt in self.valid_lambdas]
         ),  # TODO: not working because elements are dictionary
@@ -140,13 +145,13 @@ class RiskController:
         self,
         decision: BaseDecision,
         params: BaseParameterSpace,
-        risks: Union[BaseRisk, list[BaseRisk], dict[str, BaseRisk]],
+        risks: Union[BaseRisk, List[BaseRisk], Dict[str, BaseRisk]],
         *,
         delta: float,
         pvalue_method: str = "clt",
         fwer_method: str = "sgt",
         control_method: str = "rmin",
-        lambda_to_select: Optional[callable] = None,
+        lambda_to_select: Optional[Callable[[Dict[str, Any]], bool]] = None,
     ) -> None:
         """
         Initialize the RiskController class.
@@ -157,7 +162,7 @@ class RiskController:
             The decision object used for making predictions and decisions.
         params : BaseParameterSpace
             The parameter space for the risk control.
-        risks : Union[BaseRisk, list[BaseRisk], dict[str, BaseRisk]]
+        risks : Union[BaseRisk, List[BaseRisk], Dict[str, BaseRisk]]
             The risk object used for computing risk values.
         delta : float
             The desired error rate.
@@ -178,7 +183,7 @@ class RiskController:
         self.decision = decision
         self.params = params
 
-        self.risks: dict[str, BaseRisk]
+        self.risks: Dict[str, BaseRisk]
         if isinstance(risks, list):
             self.risks = {risk_.name: risk_ for risk_ in risks}
         elif isinstance(risks, BaseRisk):
@@ -186,7 +191,7 @@ class RiskController:
         elif isinstance(risks, dict):
             self.risks = risks
 
-        self.target_risks: dict[str, float] = {}
+        self.target_risks: Dict[str, float] = {}
         self.target_risks = {
             risk_.name: risk_.acceptable_risk for risk_ in self.risks.values()
         }
@@ -210,16 +215,16 @@ class RiskController:
 
         self.lambda_to_select = lambda_to_select
 
-    def _initialize_cr_results(self) -> dict[str, list[Any]]:
+    def _initialize_cr_results(self) -> Dict[str, Union[List[Any], np.ndarray]]:
         """
         Initialize the control results dictionary.
 
         Returns
         -------
-        dict[str, list[Any]]
+        Dict[str, Union[List[Any], np.ndarray]]
             The initialized control results dictionary.
         """
-        cr_results: dict[str, list[Any]] = {}
+        cr_results: Dict[str, Union[List[Any], np.ndarray]] = {}
 
         for key in self.risks.keys():
             cr_results[f"risks.{key}.values"] = []
@@ -234,7 +239,10 @@ class RiskController:
 
         return cr_results
 
-    def _clone_decision_with_params(self, **params) -> BaseDecision:
+    def _clone_decision_with_params(
+        self,
+        **params: Dict[str, Any],
+    ) -> BaseDecision:
         """
         Clone the decision object with the given parameters.
 
@@ -253,20 +261,22 @@ class RiskController:
         decision_clone.set_params(**params)
         return decision_clone
 
-    def _get_all_combinations(self, params: dict) -> list[dict]:
+    def _get_all_combinations(
+        self, params: Dict[str, Any]
+    ) -> Tuple[List[Dict[str, Any]], Tuple[int, ...]]:
         """
         Get all combinations of parameters.
 
         Parameters
         ----------
-        params : dict
+        params : Dict[str, Any]
             The parameters and their possible values.
 
         Returns
         -------
-        list[dict]
+        List[Dict[str, Any]]
             All combinations of parameters.
-        tuple[int]
+        Tuple[int]
             The shape of the combinations.
         """
         keys = params.keys()
@@ -277,8 +287,12 @@ class RiskController:
         return combinations, shape
 
     def _estimate_risk(
-        self, X: np.ndarray, y: np.ndarray, l_values: list[dict[str, Any]], **kwargs
-    ) -> dict:
+        self,
+        X: np.ndarray,
+        y: np.ndarray,
+        l_values: List[Dict[str, Any]],
+        **kwargs: Any,
+    ) -> Dict[str, Any]:
         """
         Estimate the risk for each lambda value.
 
@@ -288,14 +302,14 @@ class RiskController:
             The input features.
         y : np.ndarray
             The true labels.
-        l_values : list[dict[str, Any]]
+        l_values : List[Dict[str, Any]]
             The list of lambda values to evaluate.
         **kwargs : dict
             Additional keyword arguments for risk computation.
 
         Returns
         -------
-        cr_results : dict
+        cr_results : Dict[str, Any]
             A dictionary containing the risk values for each lambda value.
             The dictionary has the following structure:
 
@@ -306,8 +320,8 @@ class RiskController:
             - f"risks.{key}.pvalue": list of p-values for each lambda value.
             - "params": list of all parameters for each lambda value.
             - f"params.{key}" Additional keys for each parameter in the parameter space.
-        """
-        cr_results: dict[str, list[Any]] = self._initialize_cr_results()
+        """  # noqa: E501
+        cr_results: Dict[str, Any] = self._initialize_cr_results()
 
         y_output = self.decision.make_prediction(X)
         for l_value in l_values:
@@ -339,7 +353,12 @@ class RiskController:
 
         return cr_results
 
-    def evaluate(self, X: np.ndarray, y: np.ndarray, **kwargs) -> None:
+    def evaluate(
+        self,
+        X: np.ndarray,
+        y: np.ndarray,
+        **kwargs: Any,
+    ) -> None:
         """
         Evaluate, for all lambda values (i.e., the grid of the decision function),
         the risk values and means for the given data with respect to the decision
@@ -431,7 +450,7 @@ class RiskController:
             If no valid hypotheses are found.
         """
         indexes = RiskController._valid_fwer_method[method](
-            p_values, delta, self.param_shape
+            p_values, delta, **{"param_shape": self.param_shape}
         )
 
         if not len(indexes):
@@ -455,7 +474,7 @@ class RiskController:
         """
         for name_ in self.risks.keys():
             self.cr_results[f"risks.{name_}.p_value"] = self._estimate_pvalues(
-                values=self.cr_results[f"risks.{name_}.values"],
+                values=np.array(self.cr_results[f"risks.{name_}.values"]),
                 alpha=self.target_risks[name_],
                 method=self.pvalue_method,
             )
@@ -463,7 +482,7 @@ class RiskController:
         self.cr_specific_results = {}
         for name_ in self.risks.keys():
             indexes = self._control_fwer(
-                p_values=self.cr_results[f"risks.{name_}.p_value"],
+                p_values=np.array(self.cr_results[f"risks.{name_}.p_value"]),
                 delta=self.delta,
                 method=self.fwer_method,
             )
@@ -518,23 +537,31 @@ class RiskController:
         ValueError
             If no solution is found for risk control.
         """
-        if (
-            not self.has_solution
-        ):  # raise ValueError("No solution found for risk control.")
+        self.l_star: Optional[Dict[str, float]]
+        self.r_star: Optional[Dict[str, float]]
+
+        if not self.has_solution:
+            # raise ValueError("No solution found for risk control.")
             self.l_star = None
             self.r_star = None
-            return
 
-        idx = RiskController._valid_control_method[self.control_method](self)
+        else:
+            idx = RiskController._valid_control_method[self.control_method](self)
 
-        self.l_star: dict[str, float] = self.valid_lambdas[idx]  # type: ignore
-        self.r_star: dict[str, float] = {
-            name_: valid_risks_[idx] for name_, valid_risks_ in self.valid_risks.items()
-        }  # type: ignore
-        if self.l_star:
-            self.decision.set_params(**self.l_star)
+            self.l_star = self.valid_lambdas[idx]  # type: ignore
+            self.r_star = {
+                name_: valid_risks_[idx]
+                for name_, valid_risks_ in self.valid_risks.items()
+            }  # type: ignore
+            if self.l_star:
+                self.decision.set_params(**self.l_star)
 
-    def fit(self, X: np.ndarray, y: np.ndarray, **kwargs):
+    def fit(
+        self,
+        X: np.ndarray,
+        y: np.ndarray,
+        **kwargs: Any,
+    ) -> Self:
         """
         Fit the decision model on the input data, i.e.:
 

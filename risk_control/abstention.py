@@ -1,12 +1,13 @@
 import math
+from typing import Self
 
 
 class ABSTAIN(float):
-    def __new__(cls):
+    def __new__(cls) -> Self:
         # Create a new instance of the float type with NaN value
         return super(ABSTAIN, cls).__new__(cls, math.nan)
 
-    def __bool__(self):
+    def __bool__(self) -> bool:
         # Override the __bool__ method to return False
         return False
 

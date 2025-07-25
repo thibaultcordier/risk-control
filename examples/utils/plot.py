@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def plot_classification(X, y):
+def plot_classification(X: np.ndarray, y: np.ndarray) -> None:
     fig, ax = plt.subplots(figsize=(10, 5), dpi=160)
     if np.ndim(y) > 1:
         y = y[:, 0] + 2 * y[:, 1] + 4 * y[:, 2]

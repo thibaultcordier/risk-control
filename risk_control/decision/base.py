@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, Dict, Self
 
 import numpy as np
 from sklearn.base import BaseEstimator
@@ -38,18 +38,21 @@ class BaseDecision(ABC):
     ----------
     estimator : BaseEstimator
         The estimator object used for making predictions.
-    """
+    """  # noqa: E501
 
     def __init__(self, estimator: BaseEstimator) -> None:
         self.estimator = estimator
 
-    def set_params(self, **params):
+    def set_params(
+        self,
+        **params: Dict[str, Any],
+    ) -> Self:
         """
         Set the parameters of the estimator.
 
         Parameters
         ----------
-        **params : dict
+        **params : Dict[str, Any]
             The parameters to set on the estimator.
 
         Returns
@@ -62,13 +65,13 @@ class BaseDecision(ABC):
         return self
 
     @abstractmethod
-    def get_params(self) -> dict:
+    def get_params(self) -> Dict[str, Any]:
         """
         Get the parameters of the estimator.
 
         Returns
         -------
-        params : dict
+        params : Dict[str, Any]
             The parameters of the estimator.
         """
         pass
@@ -125,7 +128,7 @@ class BaseDecision(ABC):
         y_decision = self.make_decision(y_output)
         return y_decision
 
-    def fit(self, X: np.ndarray, y: np.ndarray):
+    def fit(self, X: np.ndarray, y: np.ndarray) -> Self:
         """
         Fit the estimator to the input data.
 

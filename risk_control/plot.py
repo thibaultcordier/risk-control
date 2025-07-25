@@ -1,5 +1,6 @@
 import numpy as np
 from matplotlib import pyplot as plt
+
 from risk_control.risk_control import RiskController
 
 
@@ -7,7 +8,9 @@ def plot_p_values(self: RiskController) -> None:
     """
     Plot the p-values against lambda values.
     """
-    assert len(self.params) <= 2, "Only one or two parameters are supported for plotting."
+    assert len(self.params) <= 2, (
+        "Only one or two parameters are supported for plotting."
+    )
 
     risk_name_ = "AGG"  # list(self.risks.keys()[0])
 
@@ -68,7 +71,9 @@ def plot_risk_curve(self: RiskController) -> None:
     """
     Plot the risk curve against lambda values.
     """
-    assert len(self.params) <= 2, "Only one or two parameters are supported for plotting."
+    assert len(self.params) <= 2, (
+        "Only one or two parameters are supported for plotting."
+    )
 
     risk_names = list(self.risks.keys())
 
@@ -77,7 +82,7 @@ def plot_risk_curve(self: RiskController) -> None:
         lambda_values = self.cr_results[f"params.{lambda_name}"]
 
         fig, axs = plt.subplots(1, len(risk_names), figsize=(10, 5), dpi=160)
-        # fig, axs = plt.subplots(1, len(risk_names), figsize=(5 * len(risk_names), 5), dpi=160)
+        # fig, axs = plt.subplots(1, len(risk_names), figsize=(5 * len(risk_names), 5), dpi=160)  # noqa: E501
         if len(risk_names) == 1:
             axs = [axs]
 
@@ -85,7 +90,7 @@ def plot_risk_curve(self: RiskController) -> None:
             risk_means = self.cr_results[f"risks.{risk_name}.mean"]
             axs[i].plot(
                 lambda_values,
-                self.risks[risk_name].convert_to_performance(risk_means),  # type: ignore
+                self.risks[risk_name].convert_to_performance(risk_means),  # type: ignore  # noqa: E501
                 color="red",
             )
             axs[i].set_xlabel(lambda_name)
@@ -118,7 +123,9 @@ def plot_risk_curve(self: RiskController) -> None:
             )
             if self.r_star:
                 axs[i].hlines(
-                    self.risks[risk_name].convert_to_performance(self.r_star[risk_name]),
+                    self.risks[risk_name].convert_to_performance(
+                        self.r_star[risk_name]
+                    ),
                     lmin,
                     lmax,
                     color="red",
@@ -166,9 +173,9 @@ def plot_risk_curve(self: RiskController) -> None:
                 for k, l2 in enumerate(lambda_values_2_unique):
                     idx = np.where((lambda_values_1 == l1) & (lambda_values_2 == l2))[0]
                     if idx.size > 0:
-                        risk_matrix[j, k] = self.risks[risk_name].convert_to_performance(
-                            risk_means[idx[0]]
-                        )
+                        risk_matrix[j, k] = self.risks[
+                            risk_name
+                        ].convert_to_performance(risk_means[idx[0]])
 
             axs[i].imshow(
                 risk_matrix,

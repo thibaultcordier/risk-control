@@ -1,3 +1,3 @@
-from typing import Any
+from typing import Any, Dict
 
-BaseParameterSpace = dict[str, Any]
+BaseParameterSpace = Dict[str, Any]

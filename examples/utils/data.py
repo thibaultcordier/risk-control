@@ -1,3 +1,6 @@
+from typing import Tuple
+
+import numpy as np
 from sklearn.datasets import (
     fetch_california_housing,
     make_blobs,
@@ -5,8 +8,13 @@ from sklearn.datasets import (
 from sklearn.model_selection import train_test_split
 
 
-def get_data_classification(random_state):
-    def generate_blobs_data(n_samples, n_classes, center_box, random_state):
+def get_data_classification(random_state: int) -> Tuple[np.ndarray, ...]:
+    def generate_blobs_data(
+        n_samples: int,
+        n_classes: int,
+        center_box: Tuple[float, float],
+        random_state: int,
+    ) -> Tuple[np.ndarray, np.ndarray]:
         X, y = make_blobs(
             n_samples=n_samples,
             centers=n_classes,
@@ -27,7 +35,7 @@ def get_data_classification(random_state):
     return X_train, X_cal, X_test, y_train, y_cal, y_test
 
 
-def get_data_regression(random_state):
+def get_data_regression(random_state: int) -> Tuple[np.ndarray, ...]:
     X, y = fetch_california_housing(return_X_y=True)
 
     X_train, X_test, y_train, y_test = train_test_split(

@@ -1,9 +1,10 @@
 from abc import ABC
-from typing import Tuple
+from typing import Any, Dict, Tuple
 
 import numpy as np
-from risk_control.decision.base import BaseDecision
 from sklearn.base import BaseEstimator
+
+from risk_control.decision.base import BaseDecision
 
 
 class BaseRegressionDecision(BaseDecision, ABC):
@@ -43,7 +44,7 @@ class BaseRegressionDecision(BaseDecision, ABC):
         super().__init__(estimator)
         self.threshold = threshold
 
-    def get_params(self):
+    def get_params(self) -> Dict[str, Any]:
         """
         Get the parameters of the estimator.
 
@@ -52,7 +53,7 @@ class BaseRegressionDecision(BaseDecision, ABC):
         params : dict
             The parameters of the estimator.
         """
-        return super().get_params() | {"threshold": self.threshold}
+        return {"threshold": self.threshold}
 
     def make_prediction(self, X: np.ndarray) -> np.ndarray:
         """
@@ -116,7 +117,7 @@ class AdvancedRegressionDecision(BaseDecision, ABC):
         self.residual = residual
         self.threshold = threshold
 
-    def get_params(self):
+    def get_params(self) -> Dict[str, Any]:
         """
         Get the parameters of the estimator.
 
@@ -125,7 +126,7 @@ class AdvancedRegressionDecision(BaseDecision, ABC):
         params : dict
             The parameters of the estimator.
         """
-        return super().get_params() | {"threshold": self.threshold}
+        return {"threshold": self.threshold}
 
     def make_prediction(self, X: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
         """

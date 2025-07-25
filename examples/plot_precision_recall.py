@@ -8,6 +8,7 @@ classes to perform precision-recall trade-off for binary classification.
 import os
 import sys
 import warnings
+from typing import List, Tuple
 
 basedir = os.path.abspath(os.path.join(os.path.curdir, ".."))
 sys.path.append(basedir)
@@ -15,6 +16,7 @@ basedir = os.path.abspath(os.path.join(os.path.curdir, "."))
 sys.path.append(basedir)
 
 import numpy as np
+
 from risk_control import RiskController
 from risk_control.decision.base import BaseDecision
 from risk_control.decision.decision import BinaryDecision
@@ -32,7 +34,6 @@ np.random.seed(42)
 ##################################################
 # First, we load the data and train a model.
 from sklearn.datasets import make_classification
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 
@@ -63,7 +64,7 @@ with warnings.catch_warnings(action="ignore"):
 # Here, we define the decision, the risks, and the parameter space.
 
 decision: BaseDecision = BinaryDecision(estimator=model)
-risks: list[BaseRisk] = [PrecisionRisk(0.3), RecallRisk(0.3)]
+risks: List[BaseRisk] = [PrecisionRisk(0.3), RecallRisk(0.3)]
 params: BaseParameterSpace = {"threshold": np.linspace(-2.0, 2.0, 101)}
 
 controller = RiskController(
@@ -74,10 +75,12 @@ controller = RiskController(
 )
 
 ##################################################
-# Now, we fit the model and plot the results. In practice, this function will be used to find the valid
-# thresholds that control the risks at the given levels with a confidence level given by the data.
+# Now, we fit the model and plot the results. In practice, this function will be
+# used to find the valid thresholds that control the risks at the given levels with
+# a confidence level given by the data.
 #
-# A summary of the results is printed that contains the optimal threshold and the corresponding risks.
+# A summary of the results is printed that contains the optimal threshold and the
+# corresponding risks.
 
 controller.fit(X_calib, y_calib)
 controller.summary()
@@ -93,14 +96,14 @@ plot_risk_curve(controller)
 plot_p_values(controller)
 
 ##################################################
-# Finally, we can use the optimal threshold to predict on the test set and compute the risks.
-# The risks are computed on the test set and converted to performance metrics.
-# We can check that the risks are controlled at the given levels.
+# Finally, we can use the optimal threshold to predict on the test set and compute
+# the risks. The risks are computed on the test set and converted to performance
+# metrics. We can check that the risks are controlled at the given levels.
 
 from scipy.stats import norm
 
 
-def confidence_interval(array, alpha=0.05):
+def confidence_interval(array: np.ndarray, alpha: float = 0.05) -> Tuple[float, float]:
     n = len(array)
     mean = np.mean(array)
     var = np.var(array)

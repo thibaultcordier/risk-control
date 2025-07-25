@@ -12,48 +12,38 @@ endif
 # COMMANDS                                                                      #
 #################################################################################
 
-#################################################################################
-# COMMANDS                                                                      #
-#################################################################################
-
 ## Delete all compiled Python files
 .PHONY: clean
 clean:
 	find . -type f -name "*.py[co]" -delete
 	find . -type d -name "__pycache__" -delete
+	rm -rf *.egg-info
+	rm -rf **/__pycache__
+	rm -rf **.ipynb_checkpoints
+	rm -rf .ruff_cache
+	rm -rf .mypy_cache
+	rm -rf .pytest_cache
+	rm -rf htmlcov
+	rm -f coverage.xml
+	rm -f .coverage
+	rm -rf reports
+	rm -rf public
+	rm -rf docs/generated
+
+## Check commit message with pre-commit
+.PHONY: pre-commit
+pre-commit:
+	pre-commit run --all-files
 
 ## Check typing with mypy
 .PHONY: type-check
 type-check:
-	mypy risk_control tests examples
+	mypy risk_control tests examples --config-file=pyproject.toml
 
-## Lint using flake8
-.PHONY: lint-flake
-lint-flake:
-	flake8 risk_control tests examples
-
-## Lint using black
-.PHONY: lint-black
-lint-black:
-	black --check --config pyproject.toml risk_control tests examples
-
-## Lint using isort
-.PHONY: lint-isort
-lint-isort:
-	isort --check --diff --profile black --resolve-all-configs risk_control tests examples
-
-## Lint using flake8, isort and black (use `make format` to do formatting)
+## Lint using ruff
 .PHONY: lint
 lint:
-	$(MAKE) lint-flake
-	$(MAKE) lint-black
-	$(MAKE) lint-isort
-
-## Format source code with isort and black
-.PHONY: format
-format:
-	isort --profile black --resolve-all-configs risk_control tests examples
-	black --config pyproject.toml risk_control tests examples
+	ruff check --extend-select=E --extend-select=I --fix --exclude=notebooks --ignore=E402
 
 #################################################################################
 # COMMANDS                                                                      #
@@ -76,12 +66,11 @@ report-tests:
 	@echo ">>> Reports compiled."
 
 ## Clean the test/coverage caches
-## Clean xml test/coverage caches
 .PHONY: clean-tests
 clean-tests:
 	@echo ">>> Removing coverage caches..."
 	@echo ">>> ... at: htmlcov and .coverage"
-	rm -rf htmlcov .coverage .pytest_cache
+	rm -rf htmlcov .coverage .pytest_cache coverage.xml
 	@echo ">>> Caches removed."
 
 #################################################################################

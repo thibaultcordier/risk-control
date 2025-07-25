@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
+from typing import Any
 
 import numpy as np
-from risk_control.abstention import _abs
 from sklearn.base import BaseEstimator
 
 
@@ -51,7 +51,11 @@ class BaseRisk(ABC):
         self.acceptable_risk = acceptable_risk
 
     def _compute_from_estimator(
-        self, estimator: BaseEstimator, X: np.ndarray, y_true: np.ndarray, **kwargs
+        self,
+        estimator: BaseEstimator,
+        X: np.ndarray,
+        y_true: np.ndarray,
+        **kwargs: Any,
     ) -> float:
         """
         Compute the risk based on predictions made by an estimator.
@@ -77,7 +81,10 @@ class BaseRisk(ABC):
         return self._compute_from_predictions(y_pred, y_true, **kwargs)
 
     def _compute_from_predictions(
-        self, y_pred: np.ndarray, y_true: np.ndarray, **kwargs
+        self,
+        y_pred: np.ndarray,
+        y_true: np.ndarray,
+        **kwargs: Any,
     ) -> float:
         """
         Compute the risk based on predictions and true values.
@@ -98,7 +105,12 @@ class BaseRisk(ABC):
         """
         return self._compute_mean(y_pred, y_true, **kwargs)
 
-    def _compute_mean(self, y_pred: np.ndarray, y_true: np.ndarray, **kwargs) -> float:
+    def _compute_mean(
+        self,
+        y_pred: np.ndarray,
+        y_true: np.ndarray,
+        **kwargs: Any,
+    ) -> float:
         """
         Compute the mean of the computed risks (ignoring NaNs).
 
@@ -122,7 +134,12 @@ class BaseRisk(ABC):
         return mean
 
     @abstractmethod
-    def compute(self, y_pred: np.ndarray, y_true: np.ndarray, **kwargs) -> np.ndarray:
+    def compute(
+        self,
+        y_pred: np.ndarray,
+        y_true: np.ndarray,
+        **kwargs: Any,
+    ) -> np.ndarray:
         """
         Compute the risks based on predictions and true values.
 
@@ -190,7 +207,12 @@ class MSERisk(BaseRisk):
         self.mse_max = mse_max
         self.acceptable_risk = self.acceptable_risk / self.mse_max
 
-    def compute(self, y_pred: np.ndarray, y_true: np.ndarray, **kwargs) -> np.ndarray:
+    def compute(
+        self,
+        y_pred: np.ndarray,
+        y_true: np.ndarray,
+        **kwargs: Any,
+    ) -> np.ndarray:
         """
         Computes the risks based on the predicted and true values.
 
@@ -236,7 +258,12 @@ class PrecisionRisk(BaseRisk):
         """
         return 1 - x
 
-    def compute(self, y_pred: np.ndarray, y_true: np.ndarray, **kwargs) -> np.ndarray:
+    def compute(
+        self,
+        y_pred: np.ndarray,
+        y_true: np.ndarray,
+        **kwargs: Any,
+    ) -> np.ndarray:
         """
         Compute risks based on the precision of predictions.
 
@@ -284,7 +311,12 @@ class RecallRisk(BaseRisk):
         """
         return 1 - x
 
-    def compute(self, y_pred: np.ndarray, y_true: np.ndarray, **kwargs) -> np.ndarray:
+    def compute(
+        self,
+        y_pred: np.ndarray,
+        y_true: np.ndarray,
+        **kwargs: Any,
+    ) -> np.ndarray:
         """
         Compute risks based on the recall of predictions.
 
@@ -323,7 +355,7 @@ class AccuracyRisk(BaseRisk):
 
     - Could be relevant for [`SelectiveClassification`][decision.SelectiveClassification].
     - Irrelevant for [`MultiSelectiveClassification`][decision.MultiSelectiveClassification].
-    """
+    """  # noqa: E501
 
     name: str = "accuracy"
     greater_is_better: bool = True
@@ -345,7 +377,12 @@ class AccuracyRisk(BaseRisk):
         """
         return 1 - x
 
-    def compute(self, y_pred: np.ndarray, y_true: np.ndarray, **kwargs) -> np.ndarray:
+    def compute(
+        self,
+        y_pred: np.ndarray,
+        y_true: np.ndarray,
+        **kwargs: Any,
+    ) -> np.ndarray:
         """
         Compute risks based on the accuracy of predictions.
 
@@ -390,7 +427,7 @@ class CoverageRisk(BaseRisk):
 
     Relevant for [`MultiSelectiveClassification`][decision.MultiSelectiveClassification].
     Compatible with [`SelectiveClassification`][decision.SelectiveClassification].
-    """
+    """  # noqa: E501
 
     name: str = "coverage"
     greater_is_better: bool = True
@@ -412,7 +449,12 @@ class CoverageRisk(BaseRisk):
         """
         return 1 - x
 
-    def compute(self, y_pred: np.ndarray, y_true: np.ndarray, **kwargs) -> np.ndarray:
+    def compute(
+        self,
+        y_pred: np.ndarray,
+        y_true: np.ndarray,
+        **kwargs: Any,
+    ) -> np.ndarray:
         """
         Compute risks based on the coverage of prediction sets.
 
@@ -448,7 +490,7 @@ class FalseDiscoveryRisk(BaseRisk):
 
     TODO: Relevant for [`MultiSelectiveClassification`][decision.MultiSelectiveClassification].
     TODO: Compatible with [`SelectiveClassification`][decision.SelectiveClassification].
-    """
+    """  # noqa: E501
 
     name: str = "FDR"
     greater_is_better: bool = False
@@ -470,7 +512,12 @@ class FalseDiscoveryRisk(BaseRisk):
         """
         return x
 
-    def compute(self, y_pred: np.ndarray, y_true: np.ndarray, **kwargs) -> np.ndarray:
+    def compute(
+        self,
+        y_pred: np.ndarray,
+        y_true: np.ndarray,
+        **kwargs: Any,
+    ) -> np.ndarray:
         """
         Compute risks based on the FDR of prediction sets.
 
@@ -500,7 +547,9 @@ class FalseDiscoveryRisk(BaseRisk):
         elif y_true.ndim == 1:
             n_samples, _ = y_pred.shape
             indexes_abs = np.any(np.isnan(y_pred), axis=-1)
-            risks = 1.0 - (y_pred[np.arange(n_samples), y_true]) / np.sum(y_pred, axis=-1)
+            risks = 1.0 - (y_pred[np.arange(n_samples), y_true]) / np.sum(
+                y_pred, axis=-1
+            )
             risks[indexes_abs] = np.nan  # noqa: E712
         else:
             indexes_abs = np.any(np.isnan(y_pred), axis=-1)
@@ -534,7 +583,12 @@ class AbstentionRisk(BaseRisk):
         """
         return x
 
-    def compute(self, y_pred: np.ndarray, y_true: np.ndarray, **kwargs) -> np.ndarray:
+    def compute(
+        self,
+        y_pred: np.ndarray,
+        y_true: np.ndarray,
+        **kwargs: Any,
+    ) -> np.ndarray:
         """
         Compute risks based on the ratio human/machine predictions.
 
@@ -586,7 +640,12 @@ class NonUniqueCandidateRisk(BaseRisk):
         """
         return x
 
-    def compute(self, y_pred: np.ndarray, y_true: np.ndarray, **kwargs) -> np.ndarray:
+    def compute(
+        self,
+        y_pred: np.ndarray,
+        y_true: np.ndarray,
+        **kwargs: Any,
+    ) -> np.ndarray:
         """
         Compute risks based on the alternative predictions.
 
