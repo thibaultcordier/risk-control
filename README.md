@@ -1,5 +1,10 @@
 # Risk Control Project
 
+[![CI/CD Pipeline](https://github.com/your-username/risk-control/workflows/CI%2FCD%20Pipeline/badge.svg)](https://github.com/your-username/risk-control/actions)
+[![Code Coverage](https://codecov.io/gh/your-username/risk-control/branch/main/graph/badge.svg)](https://codecov.io/gh/your-username/risk-control)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 This project focuses on developing and implementing risk control mechanisms for predictive algorithms based on the paper "Learn then test: Calibrating predictive algorithms to achieve risk control" by Angelopoulos et al. (2025).
 The primary goal is to ensure that the algorithms perform reliably and maintain a controlled level of risk.
 
