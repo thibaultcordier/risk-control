@@ -12,7 +12,6 @@ env:
   UV_VERSION: "0.8.13"
   MIN_COVERAGE: 0
   PYTHON_VERSION: "3.13"  # Default Python version for non-matrix jobs
-  PYTHON_VERSIONS: '["3.9", "3.10", "3.11", "3.12", "3.13"]'  # Python versions for matrix testing
 
 jobs:
   lint:
@@ -66,7 +65,7 @@ jobs:
     timeout-minutes: 30
     strategy:
       matrix:
-        python-version: ${{ fromJson(env.PYTHON_VERSIONS) }}
+        python-version: [3.9, 3.10, 3.11, 3.12, 3.13]
         os: [ubuntu-latest, macos-latest]
 
     steps:
