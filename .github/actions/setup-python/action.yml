@@ -1,0 +1,42 @@
+name: 'Setup Python Environment'
+description: 'Setup Python with uv and cache dependencies'
+
+inputs:
+  python-version:
+    description: 'Python version to use'
+    required: false
+    default: '3.13'
+  uv-version:
+    description: 'uv version to use'
+    required: false
+    default: '0.8.13'
+  cache-key:
+    description: 'Cache key for dependencies'
+    required: false
+    default: 'venv'
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Python ${{ inputs.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v6
+      with:
+        version: ${{ inputs.uv-version }}
+
+    - name: Cache dependencies
+      uses: actions/cache@v4
+      with:
+        path: .venv
+        key: ${{ runner.os }}-${{ inputs.cache-key }}-venv-${{ hashFiles('**/pyproject.toml') }}
+        restore-keys: |
+          ${{ runner.os }}-${{ inputs.cache-key }}-venv-
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        uv sync --group dev

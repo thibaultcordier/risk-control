@@ -1,0 +1,166 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  release:
+    types: [published]
+
+env:
+  UV_VERSION: "0.8.13"
+  MIN_COVERAGE: 0
+  PYTHON_VERSION: "3.13"  # Default Python version for non-matrix jobs
+
+jobs:
+  lint:
+    name: Lint and Format
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Python Environment
+      uses: ./.github/actions/setup-python
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        uv-version: ${{ env.UV_VERSION }}
+
+    - name: Run linting
+      run: |
+        uv run make lint
+
+    - name: Check code formatting
+      run: |
+        uv run make format
+
+    - name: Run pre-commit hooks
+      run: |
+        uv run make pre-commit
+
+  type-check:
+    name: Type Checking
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Python Environment
+      uses: ./.github/actions/setup-python
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        uv-version: ${{ env.UV_VERSION }}
+
+    - name: Run type checking
+      run: |
+        uv run make type-check
+
+  test:
+    name: Tests
+    runs-on: ${{ matrix.os }}
+    needs: [lint, type-check]
+    timeout-minutes: 30
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        os: [ubuntu-latest, macos-latest]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Python Environment
+      uses: ./.github/actions/setup-python
+      with:
+        python-version: ${{ matrix.python-version }}
+        uv-version: ${{ env.UV_VERSION }}
+        cache-key: ${{ matrix.python-version }}
+
+    - name: Run tests with coverage
+      run: |
+        uv run make tests
+
+    - name: Generate coverage report
+      run: |
+        uv run make report-tests
+
+    - name: Check coverage threshold
+      run: |
+        uv run coverage report --show-missing --fail-under=${{ env.MIN_COVERAGE }}
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: false
+        token: ${{ secrets.CODECOV_TOKEN }}  # Optional: Add if you have a token
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    needs: test
+    timeout-minutes: 15
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Python Environment
+      uses: ./.github/actions/setup-python
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        uv-version: ${{ env.UV_VERSION }}
+
+    - name: Run bandit security scan
+      run: |
+        uv run pip install bandit
+        uv run bandit -r risk_control/ -f json -o bandit-report.json || true
+
+    - name: Run pip-audit for dependency vulnerabilities
+      run: |
+        uv run pip install pip-audit
+        uv run pip-audit --format json --output pip-audit-report.json || true
+
+    - name: Upload security scan results
+      uses: actions/upload-artifact@v4
+      with:
+        name: security-scan-results
+        path: |
+          bandit-report.json
+          pip-audit-report.json
+
+  docs:
+    name: Build Documentation
+    runs-on: ubuntu-latest
+    needs: [test, security]
+    if: github.event_name == 'release'
+    timeout-minutes: 20
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Python Environment
+      uses: ./.github/actions/setup-python
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        uv-version: ${{ env.UV_VERSION }}
+
+    - name: Install documentation dependencies
+      run: |
+        uv sync --group docs
+
+    - name: Build documentation
+      run: |
+        uv run make docs
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./site

@@ -1,0 +1,49 @@
+name: Setup Python Environment
+
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        description: 'Python version to use'
+        required: false
+        default: '3.13'
+        type: string
+      cache-key:
+        description: 'Cache key for dependencies'
+        required: false
+        default: 'venv'
+        type: string
+    outputs:
+      python-version:
+        description: 'The Python version that was set up'
+        value: ${{ steps.setup-python.outputs.python-version }}
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ inputs.python-version }}
+        id: setup-python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.python-version }}
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: ${{ env.UV_VERSION }}
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: ${{ runner.os }}-${{ inputs.cache-key }}-venv-${{ hashFiles('**/pyproject.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ inputs.cache-key }}-venv-
+
+      - name: Install dependencies
+        run: |
+          uv sync --group dev
