@@ -94,7 +94,8 @@ class RiskController:
         - f"risks.{key}.values": list of risk values for each lambda value.
             (for each lambda value in rows and each sample in columns)
         - f"risks.{key}.mean": list of mean risk values for each lambda value.
-        - f"risks.{key}.std": list of standard deviation of risk values for each lambda value.
+        - f"risks.{key}.std": list of standard deviation of risk values for each
+            lambda value.
         - f"risks.{key}.pvalue": list of p-values for each lambda value.
         - "params": list of all parameters for each lambda value.
         - f"params.{key}" Additional keys for each parameter in the parameter space.
@@ -116,21 +117,21 @@ class RiskController:
     _valid_control_method : dict
         The valid control methods (defining the criteria for selecting the optimal
         lambda value).
-    """  # noqa: E501
+    """
 
-    _valid_pvalues_method: dict[str, Callable[[np.ndarray, float, int], np.ndarray]] = {
+    _valid_pvalues_method: dict[str, Callable[[np.ndarray, float, int], np.ndarray]] = {  # noqa: RUF012
         "clt": compute_clt_p_values,
         "hb": compute_hb_p_values,
     }
 
-    _valid_fwer_method: Dict[str, Callable] = {  # type: ignore
+    _valid_fwer_method: Dict[str, Callable] = {  # noqa: RUF012
         "standard": fwer_bonferroni,
         # TODO: fixed sequence testing
         "sgt_old": fwer_sgt,
         "sgt": fwer_sgt_nd,
     }
 
-    _valid_control_method: Dict[str, Callable] = {  # type: ignore
+    _valid_control_method: Dict[str, Callable] = {  # noqa: RUF012
         "lmin": lambda self: np.argmin(
             [elt[self.ref_param] for elt in self.valid_lambdas]
         ),  # TODO: not working because elements are dictionary
@@ -210,8 +211,8 @@ class RiskController:
 
         self.cr_results = self._initialize_cr_results()
 
-        self.ref_risk = list(self.risks.keys())[0]
-        self.ref_param = list(self.params.keys())[0]
+        self.ref_risk = next(iter(self.risks.keys()))
+        self.ref_param = next(iter(self.params.keys()))
 
         self.lambda_to_select = lambda_to_select
 
@@ -316,11 +317,12 @@ class RiskController:
             - f"risks.{key}.values": list of risk values for each lambda value.
                 (for each lambda value in rows and each sample in columns)
             - f"risks.{key}.mean": list of mean risk values for each lambda value.
-            - f"risks.{key}.std": list of standard deviation of risk values for each lambda value.
+            - f"risks.{key}.std": list of standard deviation of risk values for each
+                lambda value.
             - f"risks.{key}.pvalue": list of p-values for each lambda value.
             - "params": list of all parameters for each lambda value.
             - f"params.{key}" Additional keys for each parameter in the parameter space.
-        """  # noqa: E501
+        """
         cr_results: Dict[str, Any] = self._initialize_cr_results()
 
         y_output = self.decision.make_prediction(X)

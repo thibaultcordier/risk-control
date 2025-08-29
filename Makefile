@@ -43,7 +43,13 @@ type-check:
 ## Lint using ruff
 .PHONY: lint
 lint:
-	ruff check --extend-select=E --extend-select=I --fix --exclude=notebooks --ignore=E402
+	ruff check --config pyproject.toml
+
+## Lint using ruff
+.PHONY: format
+format:
+	ruff check --select I --select RUF022 --fix
+	ruff format --config pyproject.toml
 
 #################################################################################
 # COMMANDS                                                                      #

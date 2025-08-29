@@ -413,7 +413,7 @@ class AccuracyRisk(BaseRisk):
         #     np.empty_like(y_true) * (_abs),
         #     1.0 - (np.nanargmax(y_pred, axis=-1) == y_true),
         # )
-        risks[indexes_abs] = np.nan  # noqa: E712
+        risks[indexes_abs] = np.nan
         risks[indexes_false] = 1.0
         return risks
 
@@ -480,7 +480,7 @@ class CoverageRisk(BaseRisk):
         n_samples, _ = y_pred.shape
         indexes_abs = np.any(np.isnan(y_pred), axis=-1)
         risks = 1.0 - (y_pred[np.arange(n_samples), y_true])
-        risks[indexes_abs] = np.nan  # noqa: E712
+        risks[indexes_abs] = np.nan
         return risks
 
 
@@ -550,11 +550,11 @@ class FalseDiscoveryRisk(BaseRisk):
             risks = 1.0 - (y_pred[np.arange(n_samples), y_true]) / np.sum(
                 y_pred, axis=-1
             )
-            risks[indexes_abs] = np.nan  # noqa: E712
+            risks[indexes_abs] = np.nan
         else:
             indexes_abs = np.any(np.isnan(y_pred), axis=-1)
             risks = 1.0 - np.sum(y_pred * y_true, axis=-1) / np.sum(y_pred, axis=-1)
-            risks[indexes_abs] = np.nan  # noqa: E712
+            risks[indexes_abs] = np.nan
         return risks
 
 

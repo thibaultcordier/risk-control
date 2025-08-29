@@ -1,9 +1,13 @@
 repos:
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.12.2
+  rev: v0.12.11
   hooks:
-  - id: ruff
-    args: [--line-length, "88", --extend-select=E, --extend-select=I, --fix, --exclude=notebooks, --ignore=E402]
+    # Run the linter.
+    - id: ruff-check
+      args: [ --config, pyproject.toml ]
+    # Run the formatter.
+    - id: ruff-format
+      args: [--config, pyproject.toml, --check ]
 
 - repo: https://github.com/pre-commit/mirrors-mypy
   rev: v1.16.1

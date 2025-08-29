@@ -12,12 +12,12 @@ from risk_control.decision.regression import (
 )
 
 __all__ = [
-    "BaseDecision",
-    "BaseClassificationDecision",
-    "BaseRegressionDecision",
     "AdvancedRegressionDecision",
-    "SelectiveRegression",
-    "SelectiveClassification",
+    "BaseClassificationDecision",
+    "BaseDecision",
+    "BaseRegressionDecision",
     "BestClassDecision",
     "MultiLabelDecision",
+    "SelectiveClassification",
+    "SelectiveRegression",
 ]

@@ -17,7 +17,7 @@ def plot_p_values(self: RiskController) -> None:
     fig, ax = plt.subplots(figsize=(10, 5), dpi=160)
 
     if len(self.params) == 1:
-        lambda_name = list(self.params.keys())[0]
+        lambda_name = next(iter(self.params.keys()))
         lambda_values = self.cr_results[f"params.{lambda_name}"]
         p_values = self.cr_results[f"risks.{risk_name_}.p_value"]
         l_min = np.min(lambda_values)
@@ -78,11 +78,10 @@ def plot_risk_curve(self: RiskController) -> None:
     risk_names = list(self.risks.keys())
 
     if len(self.params) == 1:
-        lambda_name = list(self.params.keys())[0]
+        lambda_name = next(iter(self.params.keys()))
         lambda_values = self.cr_results[f"params.{lambda_name}"]
 
         fig, axs = plt.subplots(1, len(risk_names), figsize=(10, 5), dpi=160)
-        # fig, axs = plt.subplots(1, len(risk_names), figsize=(5 * len(risk_names), 5), dpi=160)  # noqa: E501
         if len(risk_names) == 1:
             axs = [axs]
 
@@ -90,7 +89,7 @@ def plot_risk_curve(self: RiskController) -> None:
             risk_means = self.cr_results[f"risks.{risk_name}.mean"]
             axs[i].plot(
                 lambda_values,
-                self.risks[risk_name].convert_to_performance(risk_means),  # type: ignore  # noqa: E501
+                self.risks[risk_name].convert_to_performance(risk_means),  # type: ignore
                 color="red",
             )
             axs[i].set_xlabel(lambda_name)
