@@ -92,12 +92,13 @@ jobs:
         uv run coverage report --show-missing --fail-under=${{ env.MIN_COVERAGE }}
 
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v5
       with:
         file: ./coverage.xml
         flags: unittests
         name: codecov-umbrella
         fail_ci_if_error: false
+        token: ${{ secrets.CODECOV_TOKEN }}  # Optional: Add if you have a token
 
   security:
     name: Security Scan
