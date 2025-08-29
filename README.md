@@ -4,6 +4,11 @@
 [![Code Coverage](https://codecov.io/gh/thibaultcordier/risk-control/branch/main/graph/badge.svg)](https://codecov.io/gh/thibaultcordier/risk-control)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![PyPI version](https://badge.fury.io/py/doesnotyetexist.svg)](https://badge.fury.io/py/doesnotyetexist)
+[![Documentation](https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?colorB=319795)](https://thibaultcordier.github.io/risk-control/)
+[![Code style: ruff](https://img.shields.io/badge/code%20style-ruff-black.svg)](https://github.com/astral-sh/ruff)
+[![Linting: ruff](https://img.shields.io/badge/linting-ruff-red.svg)](https://github.com/astral-sh/ruff)
+[![Type checking: mypy](https://img.shields.io/badge/type%20checking-mypy-blue.svg)](https://mypy-lang.org/)
 
 This project focuses on developing and implementing risk control mechanisms for predictive algorithms based on the paper "Learn then test: Calibrating predictive algorithms to achieve risk control" by Angelopoulos et al. (2025).
 The primary goal is to ensure that the algorithms perform reliably and maintain a controlled level of risk.
@@ -34,7 +39,7 @@ uv run python examples/plot_classification_bis.py
 
 ## Documentation
 
-For detailed documentation, refer to the [docs](docs/index.md).
+For detailed documentation, refer to the [docs](https://thibaultcordier.github.io/risk-control/).
 
 Or you can build the documentation with:
 ```bash
