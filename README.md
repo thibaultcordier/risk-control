@@ -1,7 +1,7 @@
 # Risk Control Project
 
-[![CI/CD Pipeline](https://github.com/your-username/risk-control/workflows/CI%2FCD%20Pipeline/badge.svg)](https://github.com/your-username/risk-control/actions)
-[![Code Coverage](https://codecov.io/gh/your-username/risk-control/branch/main/graph/badge.svg)](https://codecov.io/gh/your-username/risk-control)
+[![CI/CD Pipeline](https://github.com/thibaultcordier/risk-control/workflows/CI%2FCD%20Pipeline/badge.svg)](https://github.com/thibaultcordier/risk-control/actions)
+[![Code Coverage](https://codecov.io/gh/thibaultcordier/risk-control/branch/main/graph/badge.svg)](https://codecov.io/gh/thibaultcordier/risk-control)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
