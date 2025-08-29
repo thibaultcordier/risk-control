@@ -3,7 +3,7 @@
 [![CI/CD Pipeline](https://github.com/thibaultcordier/risk-control/workflows/CI%2FCD%20Pipeline/badge.svg)](https://github.com/thibaultcordier/risk-control/actions)
 [![Code Coverage](https://codecov.io/gh/thibaultcordier/risk-control/branch/main/graph/badge.svg)](https://codecov.io/gh/thibaultcordier/risk-control)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
 This project focuses on developing and implementing risk control mechanisms for predictive algorithms based on the paper "Learn then test: Calibrating predictive algorithms to achieve risk control" by Angelopoulos et al. (2025).
 The primary goal is to ensure that the algorithms perform reliably and maintain a controlled level of risk.
@@ -43,7 +43,7 @@ uv run mkdocs serve
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the BSD 3-Clause License. See the [LICENSE](LICENSE) file for details.
 
 ## References
 
