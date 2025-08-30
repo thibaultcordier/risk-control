@@ -139,6 +139,10 @@ jobs:
     needs: [test, security]
     if: github.event_name == 'release'
     timeout-minutes: 20
+    permissions:
+      pages: write
+      id-token: write
+      contents: read
 
     steps:
     - name: Checkout code
