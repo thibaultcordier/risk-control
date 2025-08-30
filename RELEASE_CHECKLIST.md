@@ -39,7 +39,7 @@ Choose your version update method:
 
 #### Option A: Set Specific Version
 ```bash
-uv version 1.0.0
+uv version 0.1.0
 ```
 
 #### Option B: Bump Version Automatically
@@ -76,14 +76,14 @@ This creates:
 ls -la dist/
 
 # Verify package contents (optional)
-tar -tzf dist/riskcontrol-1.0.0.tar.gz
+tar -tzf dist/mlrisko-0.1.0.tar.gz
 ```
 
 ### Step 4: Test Package Locally (Optional)
 
 ```bash
 # Install the built package in a test environment
-pip install dist/riskcontrol-1.0.0.whl
+pip install dist/mlrisko-0.1.0.whl
 
 # Test basic functionality
 python -c "import mlrisko; print('Package works!')"
@@ -96,12 +96,12 @@ python -c "import mlrisko; print('Package works!')"
 git add .
 
 # Commit with conventional commit message
-git commit -m "release: version 1.0.0"
+git commit -m "release: version 0.1.0"
 
 # Create and push tag
-git tag v1.0.0
+git tag v0.1.0
 git push origin main
-git push origin v1.0.0
+git push origin v0.1.0
 ```
 
 ### Step 7: Publish to PyPI
