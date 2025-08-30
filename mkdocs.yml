@@ -1,7 +1,7 @@
-site_name: Risk control for scikit-learn
+site_name: mlrisko
 
 watch:
-  - risk_control
+  - mlrisko
   - docs
 
 theme:
@@ -44,7 +44,7 @@ plugins:
 - mkdocstrings:
     handlers:
         python:
-            paths: [risk_control]
+            paths: [mlrisko]
             inventories:
               - url: 'http://scikit-learn.org/stable/objects.inv'
                 domains: [std, py]

@@ -3,9 +3,9 @@ from typing import Any, Tuple
 import numpy as np
 from sklearn.base import BaseEstimator
 
-from risk_control.abstention import _abs
-from risk_control.decision.classification import BaseClassificationDecision
-from risk_control.decision.regression import AdvancedRegressionDecision
+from mlrisko.abstention import _abs
+from mlrisko.decision.classification import BaseClassificationDecision
+from mlrisko.decision.regression import AdvancedRegressionDecision
 
 
 class SelectiveRegression(AdvancedRegressionDecision):

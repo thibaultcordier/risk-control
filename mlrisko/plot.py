@@ -1,7 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-from risk_control.risk_control import RiskController
+from mlrisko.risk_control import RiskController
 
 
 def plot_p_values(self: RiskController) -> None:

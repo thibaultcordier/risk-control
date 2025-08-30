@@ -1,10 +1,3 @@
-"""
-# Risk control for conformal prediction
-
-This module contains the class `RiskController` which is used to control the
-risk of conformal prediction.
-"""
-
 import warnings
 from copy import deepcopy
 from itertools import product
@@ -12,15 +5,15 @@ from typing import Any, Callable, Dict, List, Optional, Self, Tuple, Union
 
 import numpy as np
 
-from risk_control.decision import BaseDecision
-from risk_control.parameter import BaseParameterSpace
-from risk_control.risk import BaseRisk
-from risk_control.tools.fwer_control import (
+from mlrisko.decision import BaseDecision
+from mlrisko.parameter import BaseParameterSpace
+from mlrisko.risk import BaseRisk
+from mlrisko.tools.fwer_control import (
     fwer_bonferroni,
     fwer_sgt,
     fwer_sgt_nd,
 )
-from risk_control.tools.pvalues import compute_clt_p_values, compute_hb_p_values
+from mlrisko.tools.pvalues import compute_clt_p_values, compute_hb_p_values
 
 # TODO: from sklearn import clone
 

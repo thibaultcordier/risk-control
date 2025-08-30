@@ -4,7 +4,7 @@ from typing import Any, Dict
 import numpy as np
 from sklearn.base import BaseEstimator
 
-from risk_control.decision.base import BaseDecision
+from mlrisko.decision.base import BaseDecision
 
 
 class BaseClassificationDecision(BaseDecision, ABC):

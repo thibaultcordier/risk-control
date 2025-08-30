@@ -86,7 +86,7 @@ tar -tzf dist/riskcontrol-1.0.0.tar.gz
 pip install dist/riskcontrol-1.0.0.whl
 
 # Test basic functionality
-python -c "import risk_control; print('Package works!')"
+python -c "import mlrisko; print('Package works!')"
 ```
 
 ### Step 5: Commit and Tag
