@@ -26,6 +26,6 @@ coverage.xml
 
 *.DS_Store
 
-_risk_control
+_mlrisko
 docs/generated
 site

@@ -1,14 +1,41 @@
 [project]
-name = "riskcontrol"
+name = "mlrisko"
 version = "0.1.0"
-description = "Add your description here"
+description = "A toolkit to calibrate predictive algorithms to achieve risk control."
+keywords = ["risk-control", "machine-learning", "ai", "statistics", "multiple-testing"]
 readme = "README.md"
+license = "BSD-3-Clause"
+license-files = ["LICEN[CS]E*"]
+authors = [
+    {name = "Thibault Cordier", email = "thibault.cordier.pro@gmail.com"},
+]
+maintainers = [
+    {name = "Thibault Cordier", email = "thibault.cordier.pro@gmail.com"},
+]
 requires-python = ">=3.13"
 dependencies = [
     "matplotlib>=3.10.3",
     "numpy>=2.3.0",
     "scikit-learn>=1.7.0",
 ]
+classifiers = [
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: OS Independent",
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/thibaultcordier/risk-control"
+"Bug Tracker" = "https://github.com/thibaultcordier/risk-control/issues"
+"Source Code" = "https://github.com/thibaultcordier/risk-control"
+"Documentation" = "https://thibaultcordier.github.io/risk-control/"
+"Changelog" = "https://github.com/thibaultcordier/risk-control/releases"
+"PyPI" = "https://pypi.org/project/mlrisko/"
+"Code Coverage" = "https://codecov.io/gh/thibaultcordier/risk-control"
+"CI/CD Pipeline" = "https://github.com/thibaultcordier/risk-control/actions"
 
 [dependency-groups]
 docs = [
@@ -29,8 +56,15 @@ dev = [
     "scipy-stubs>=1.16.0.2",
 ]
 
+[build-system]
+requires = ["uv_build >= 0.7.19, <0.9.0"]
+build-backend = "uv_build"
+
 [tool.uv]
 package = false
+
+[tool.uv.build-backend]
+module-root = ""
 
 [tool.mypy]
 python_version = "3.13"
@@ -42,7 +76,7 @@ disallow_untyped_defs = true
 addopts = "-vs -vv -vsx"
 testpaths = ["tests"]
 python_files = ["test_*.py"]
-pythonpath = "risk_control"
+pythonpath = "mlrisko"
 
 [tool.ruff]
 line-length = 88

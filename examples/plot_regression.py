@@ -18,12 +18,12 @@ import numpy as np
 from utils.data import get_data_regression
 from utils.model import get_model_regression
 
-from risk_control import RiskController
-from risk_control.decision import SelectiveRegression
-from risk_control.decision.base import BaseDecision
-from risk_control.parameter import BaseParameterSpace
-from risk_control.plot import plot_p_values, plot_risk_curve
-from risk_control.risk import AbstentionRisk, BaseRisk, MSERisk
+from mlrisko import RiskController
+from mlrisko.decision import SelectiveRegression
+from mlrisko.decision.base import BaseDecision
+from mlrisko.parameter import BaseParameterSpace
+from mlrisko.plot import plot_p_values, plot_risk_curve
+from mlrisko.risk import AbstentionRisk, BaseRisk, MSERisk
 
 random_state = 42
 np.random.seed(random_state)

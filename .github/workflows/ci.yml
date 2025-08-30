@@ -118,8 +118,7 @@ jobs:
 
     - name: Run bandit security scan
       run: |
-        uv run pip install bandit
-        uv run bandit -r risk_control/ -f json -o bandit-report.json || true
+        uv run bandit -r mlrisko/ -f json -o bandit-report.json || true
 
     - name: Run pip-audit for dependency vulnerabilities
       run: |

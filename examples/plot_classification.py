@@ -18,12 +18,12 @@ import numpy as np
 from utils.data import get_data_classification
 from utils.model import get_model_classification
 
-from risk_control import RiskController
-from risk_control.decision import SelectiveClassification
-from risk_control.decision.base import BaseDecision
-from risk_control.parameter import BaseParameterSpace
-from risk_control.plot import plot_p_values, plot_risk_curve
-from risk_control.risk import (
+from mlrisko import RiskController
+from mlrisko.decision import SelectiveClassification
+from mlrisko.decision.base import BaseDecision
+from mlrisko.parameter import BaseParameterSpace
+from mlrisko.plot import plot_p_values, plot_risk_curve
+from mlrisko.risk import (
     AbstentionRisk,
     BaseRisk,
     CoverageRisk,

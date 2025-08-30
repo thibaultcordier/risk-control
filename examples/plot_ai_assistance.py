@@ -30,11 +30,11 @@ sys.path.append(basedir)
 
 import numpy as np
 
-from risk_control import RiskController
-from risk_control.decision.base import BaseDecision
-from risk_control.parameter import BaseParameterSpace
-from risk_control.plot import plot_p_values, plot_risk_curve
-from risk_control.risk import (
+from mlrisko import RiskController
+from mlrisko.decision.base import BaseDecision
+from mlrisko.parameter import BaseParameterSpace
+from mlrisko.plot import plot_p_values, plot_risk_curve
+from mlrisko.risk import (
     AbstentionRisk,
     BaseRisk,
     FalseDiscoveryRisk,
@@ -103,8 +103,8 @@ print(f"Confidence interval of the accuracy: {score_ci[0]:.2f} - {score_ci[1]:.2
 
 from sklearn.base import BaseEstimator
 
-from risk_control.abstention import _abs
-from risk_control.decision.classification import BaseClassificationDecision
+from mlrisko.abstention import _abs
+from mlrisko.decision.classification import BaseClassificationDecision
 
 
 class SelectiveClassification(BaseClassificationDecision):

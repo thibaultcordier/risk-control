@@ -38,7 +38,7 @@ pre-commit:
 ## Check typing with mypy
 .PHONY: type-check
 type-check:
-	mypy risk_control tests examples --config-file=pyproject.toml
+	mypy mlrisko tests examples --config-file=pyproject.toml
 
 ## Lint using ruff
 .PHONY: lint
