@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: GitHub Discussions
+    url: https://github.com/thibaultcordier/risk-control/discussions
+    about: Please ask and answer questions here.
+  - name: Code of Conduct
+    url: https://github.com/thibaultcordier/risk-control/blob/main/CODE_OF_CONDUCT.md
+    about: Please read our Code of Conduct before participating.

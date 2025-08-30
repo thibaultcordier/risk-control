@@ -1,14 +1,42 @@
 [project]
-name = "riskcontrol"
+name = "riskcontrol-todo"
 version = "0.1.0"
-description = "Add your description here"
+description = "Calibrate predictive algorithms to achieve risk control."
+keywords = ["risk-control", "machine-learning", "ai", "statistics", "multiple-testing"]
 readme = "README.md"
+license = "BSD-3-Clause"
+license-files = ["LICEN[CS]E*"]
+authors = [
+    {name = "Thibault Cordier", email = "thibault.cordier.pro@gmail.com"},
+]
+maintainers = [
+    {name = "Thibault Cordier", email = "thibault.cordier.pro@gmail.com"},
+]
 requires-python = ">=3.13"
 dependencies = [
     "matplotlib>=3.10.3",
     "numpy>=2.3.0",
     "scikit-learn>=1.7.0",
 ]
+classifiers = [
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/thibaultcordier/risk-control"
+"Bug Tracker" = "https://github.com/thibaultcordier/risk-control/issues"
+"Source Code" = "https://github.com/thibaultcordier/risk-control"
+"Documentation" = "https://thibaultcordier.github.io/risk-control/"
+"Changelog" = "https://github.com/thibaultcordier/risk-control/releases"
+"PyPI" = "https://pypi.org/project/riskcontrol-todo/"
+"Code Coverage" = "https://codecov.io/gh/thibaultcordier/risk-control"
+"CI/CD Pipeline" = "https://github.com/thibaultcordier/risk-control/actions"
 
 [dependency-groups]
 docs = [
