@@ -20,7 +20,7 @@
     
     
       
-        <title>Selective Regression - Risk control for scikit-learn</title>
+        <title>Selective Regression - mlrisko</title>
       
     
     
@@ -86,7 +86,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="Risk control for scikit-learn" class="md-header__button md-logo" aria-label="Risk control for scikit-learn" data-md-component="logo">
+    <a href="../../.." title="mlrisko" class="md-header__button md-logo" aria-label="mlrisko" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -100,7 +100,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Risk control for scikit-learn
+            mlrisko
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -267,13 +267,13 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="Risk control for scikit-learn" class="md-nav__button md-logo" aria-label="Risk control for scikit-learn" data-md-component="logo">
+    <a href="../../.." title="mlrisko" class="md-nav__button md-logo" aria-label="mlrisko" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Risk control for scikit-learn
+    mlrisko
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -1067,12 +1067,12 @@ to perform selective regression.</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_data_regression</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">utils.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_model_regression</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">risk_control</span><span class="w"> </span><span class="kn">import</span> <span class="n">RiskController</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.decision</span><span class="w"> </span><span class="kn">import</span> <span class="n">SelectiveRegression</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.decision.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseDecision</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.parameter</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseParameterSpace</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.plot</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_p_values</span><span class="p">,</span> <span class="n">plot_risk_curve</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">risk_control.risk</span><span class="w"> </span><span class="kn">import</span> <span class="n">AbstentionRisk</span><span class="p">,</span> <span class="n">BaseRisk</span><span class="p">,</span> <span class="n">MSERisk</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mlrisko</span><span class="w"> </span><span class="kn">import</span> <span class="n">RiskController</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mlrisko.decision</span><span class="w"> </span><span class="kn">import</span> <span class="n">SelectiveRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mlrisko.decision.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseDecision</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mlrisko.parameter</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseParameterSpace</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mlrisko.plot</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_p_values</span><span class="p">,</span> <span class="n">plot_risk_curve</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mlrisko.risk</span><span class="w"> </span><span class="kn">import</span> <span class="n">AbstentionRisk</span><span class="p">,</span> <span class="n">BaseRisk</span><span class="p">,</span> <span class="n">MSERisk</span>
 
 <span class="n">random_state</span> <span class="o">=</span> <span class="mi">42</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
@@ -1159,7 +1159,7 @@ threshold<span class="w">       </span><span class="p">|</span><span class="w"> 
 </code></pre></div>
 <p><img alt="lambda vs. mse, lambda vs. abstension" class="mkd-glr-single-img" src="../images/mkd_glr_plot_regression_001.png" srcset="../images/mkd_glr_plot_regression_001.png" /></p>
 <p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>/Users/thibaultcordier/VSCodeProjects/mapie-experiments/RiskControl/risk_control/plot.py:151:<span class="w"> </span>UserWarning:<span class="w"> </span>FigureCanvasAgg<span class="w"> </span>is<span class="w"> </span>non-interactive,<span class="w"> </span>and<span class="w"> </span>thus<span class="w"> </span>cannot<span class="w"> </span>be<span class="w"> </span>shown
+<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>/Users/thibaultcordier/Projects/risk-control/mlrisko/plot.py:150:<span class="w"> </span>UserWarning:<span class="w"> </span>FigureCanvasAgg<span class="w"> </span>is<span class="w"> </span>non-interactive,<span class="w"> </span>and<span class="w"> </span>thus<span class="w"> </span>cannot<span class="w"> </span>be<span class="w"> </span>shown
 <span class="w">  </span>plt.show<span class="o">()</span>
 </code></pre></div>
 <!-- GENERATED FROM PYTHON SOURCE LINES 94-95 -->
@@ -1171,7 +1171,7 @@ threshold<span class="w">       </span><span class="p">|</span><span class="w"> 
 </code></pre></div>
 <p><img alt="lambda vs. p-value" class="mkd-glr-single-img" src="../images/mkd_glr_plot_regression_002.png" srcset="../images/mkd_glr_plot_regression_002.png" /></p>
 <p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>/Users/thibaultcordier/VSCodeProjects/mapie-experiments/RiskControl/risk_control/plot.py:33:<span class="w"> </span>UserWarning:<span class="w"> </span>FigureCanvasAgg<span class="w"> </span>is<span class="w"> </span>non-interactive,<span class="w"> </span>and<span class="w"> </span>thus<span class="w"> </span>cannot<span class="w"> </span>be<span class="w"> </span>shown
+<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>/Users/thibaultcordier/Projects/risk-control/mlrisko/plot.py:33:<span class="w"> </span>UserWarning:<span class="w"> </span>FigureCanvasAgg<span class="w"> </span>is<span class="w"> </span>non-interactive,<span class="w"> </span>and<span class="w"> </span>thus<span class="w"> </span>cannot<span class="w"> </span>be<span class="w"> </span>shown
 <span class="w">  </span>plt.show<span class="o">()</span>
 </code></pre></div>
 <!-- GENERATED FROM PYTHON SOURCE LINES 99-102 -->
@@ -1190,14 +1190,12 @@ metrics. We can check that the risks are controlled at the given levels.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">MSERisk</span><span class="p">(</span><span class="n">mse_max</span><span class="p">)</span><span class="o">.</span><span class="n">_compute_from_estimator</span><span class="p">(</span><span class="n">controller</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>/Users/thibaultcordier/VSCodeProjects/mapie-experiments/RiskControl/risk_control/decision/decision.py:68:<span class="w"> </span>RuntimeWarning:<span class="w"> </span>invalid<span class="w"> </span>value<span class="w"> </span>encountered<span class="w"> </span><span class="k">in</span><span class="w"> </span>multiply
-<span class="w">  </span>y_res<span class="w"> </span>&lt;<span class="o">=</span><span class="w"> </span>self.threshold,<span class="w"> </span>y_pred,<span class="w"> </span>np.empty_like<span class="o">(</span>y_pred<span class="o">)</span><span class="w"> </span>*<span class="w"> </span><span class="o">(</span>_abs<span class="o">)</span>
-mse:<span class="w"> </span><span class="m">0</span>.55
+<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>mse:<span class="w"> </span><span class="m">0</span>.55
 abstension:<span class="w"> </span><span class="m">0</span>.16
 <span class="m">0</span>.3096934191981804
 <span class="m">0</span>.3096934191981804
 </code></pre></div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  1.071 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  1.070 seconds)</p>
 <div id="download_links"></div>
 
 <p><a class="md-button center" href="../plot_regression.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v242.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48"/></svg></span> Download Python source code: plot_regression.py</a></p>

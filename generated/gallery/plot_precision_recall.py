@@ -17,12 +17,12 @@ sys.path.append(basedir)
 
 import numpy as np
 
-from risk_control import RiskController
-from risk_control.decision.base import BaseDecision
-from risk_control.decision.decision import BinaryDecision
-from risk_control.parameter import BaseParameterSpace
-from risk_control.plot import plot_p_values, plot_risk_curve
-from risk_control.risk import (
+from mlrisko import RiskController
+from mlrisko.decision.base import BaseDecision
+from mlrisko.decision.decision import BinaryDecision
+from mlrisko.parameter import BaseParameterSpace
+from mlrisko.plot import plot_p_values, plot_risk_curve
+from mlrisko.risk import (
     BaseRisk,
     PrecisionRisk,
     RecallRisk,

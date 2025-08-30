@@ -18,7 +18,7 @@
     
     
       
-        <title>Risk control for scikit-learn</title>
+        <title>mlrisko</title>
       
     
     
@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#risk-control-project" class="md-skip">
+        <a href="#risk-control-project-mlrisko" class="md-skip">
           Skip to content
         </a>
       
@@ -84,7 +84,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="Risk control for scikit-learn" class="md-header__button md-logo" aria-label="Risk control for scikit-learn" data-md-component="logo">
+    <a href="." title="mlrisko" class="md-header__button md-logo" aria-label="mlrisko" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -98,7 +98,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Risk control for scikit-learn
+            mlrisko
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -265,13 +265,13 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Risk control for scikit-learn" class="md-nav__button md-logo" aria-label="Risk control for scikit-learn" data-md-component="logo">
+    <a href="." title="mlrisko" class="md-nav__button md-logo" aria-label="mlrisko" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Risk control for scikit-learn
+    mlrisko
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -1159,9 +1159,18 @@
 
 
 
-<h1 id="risk-control-project">Risk Control Project</h1>
-<p>This project focuses on developing and implementing risk control mechanisms for predictive algorithms based on the paper "Learn then test: Calibrating predictive algorithms to achieve risk control" by Angelopoulos et al. (2025).
-The primary goal is to ensure that the algorithms perform reliably and maintain a controlled level of risk.</p>
+<h1 id="risk-control-project-mlrisko">Risk Control Project (mlrisko)</h1>
+<p><a href="https://github.com/thibaultcordier/risk-control/actions"><img alt="CI/CD Pipeline" src="https://github.com/thibaultcordier/risk-control/workflows/CI%2FCD%20Pipeline/badge.svg" /></a>
+<a href="https://codecov.io/gh/thibaultcordier/risk-control"><img alt="Code Coverage" src="https://codecov.io/gh/thibaultcordier/risk-control/branch/main/graph/badge.svg" /></a>
+<a href="https://www.python.org/downloads/"><img alt="Python 3.9+" src="https://img.shields.io/badge/python-3.9+-blue.svg" /></a>
+<a href="https://opensource.org/licenses/BSD-3-Clause"><img alt="License: BSD-3-Clause" src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg" /></a>
+<a href="https://badge.fury.io/py/mlrisko"><img alt="PyPI version" src="https://badge.fury.io/py/mlrisko.svg" /></a>
+<a href="https://thibaultcordier.github.io/risk-control/"><img alt="Documentation" src="https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?colorB=319795" /></a>
+<a href="https://github.com/astral-sh/ruff"><img alt="Code style: ruff" src="https://img.shields.io/badge/code%20style-ruff-black.svg" /></a>
+<a href="https://github.com/astral-sh/ruff"><img alt="Linting: ruff" src="https://img.shields.io/badge/linting-ruff-red.svg" /></a>
+<a href="https://mypy-lang.org/"><img alt="Type checking: mypy" src="https://img.shields.io/badge/type%20checking-mypy-blue.svg" /></a></p>
+<p><strong>mlrisko</strong> (MLRiskControl) is a comprehensive toolkit for implementing risk control mechanisms for predictive algorithms based on the paper "Learn then test: Calibrating predictive algorithms to achieve risk control" by Angelopoulos et al. (2025).</p>
+<p>The primary goal is to ensure that machine learning algorithms perform reliably and maintain a controlled level of risk through advanced calibration techniques.</p>
 <h2 id="installation">Installation</h2>
 <p>To install the necessary dependencies, run:</p>
 <div class="highlight"><pre><span></span><code>uv<span class="w"> </span>sync
@@ -1177,12 +1186,12 @@ uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </sp
 uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/plot_classification_bis.py
 </code></pre></div>
 <h2 id="documentation">Documentation</h2>
-<p>For detailed documentation, refer to the <a href="docs/index.md">docs</a>.</p>
+<p>For detailed documentation, refer to the <a href="https://thibaultcordier.github.io/risk-control/">docs</a>.</p>
 <p>Or you can build the documentation with:
 <div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>mkdocs<span class="w"> </span>serve
 </code></pre></div></p>
 <h2 id="license">License</h2>
-<p>This project is licensed under the MIT License.</p>
+<p>This project is licensed under the BSD 3-Clause License. See the <a href="LICENSE">LICENSE</a> file for details.</p>
 <h2 id="references">References</h2>
 <p>Angelopoulos, A. N., Bates, S., Candès, E. J., Jordan, M. I., &amp; Lei, L. (2025). Learn then test: Calibrating predictive algorithms to achieve risk control. The Annals of Applied Statistics, 19(2), 1641-1662.</p>
 

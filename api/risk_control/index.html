@@ -20,7 +20,7 @@
     
     
       
-        <title>Controller Module - Risk control for scikit-learn</title>
+        <title>Controller Module - mlrisko</title>
       
     
     
@@ -86,7 +86,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Risk control for scikit-learn" class="md-header__button md-logo" aria-label="Risk control for scikit-learn" data-md-component="logo">
+    <a href="../.." title="mlrisko" class="md-header__button md-logo" aria-label="mlrisko" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -100,7 +100,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Risk control for scikit-learn
+            mlrisko
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -267,13 +267,13 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Risk control for scikit-learn" class="md-nav__button md-logo" aria-label="Risk control for scikit-learn" data-md-component="logo">
+    <a href="../.." title="mlrisko" class="md-nav__button md-logo" aria-label="mlrisko" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Risk control for scikit-learn
+    mlrisko
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -415,15 +415,6 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#risk_control--risk-control-for-conformal-prediction" class="md-nav__link">
-    <span class="md-ellipsis">
-      Risk control for conformal prediction
-    </span>
-  </a>
-  
-</li>
       
         <li class="md-nav__item">
   <a href="#risk_control.RiskController" class="md-nav__link">
@@ -1376,15 +1367,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#risk_control--risk-control-for-conformal-prediction" class="md-nav__link">
-    <span class="md-ellipsis">
-      Risk control for conformal prediction
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#risk_control.RiskController" class="md-nav__link">
     <span class="md-ellipsis">
       <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;RiskController
@@ -1706,10 +1688,6 @@
 
     <div class="doc doc-contents first">
 
-        <h2 id="risk_control--risk-control-for-conformal-prediction">Risk control for conformal prediction</h2>
-<p>This module contains the class <code>RiskController</code> which is used to control the
-risk of conformal prediction.</p>
-
 
 
 
@@ -1824,7 +1802,7 @@ at iteratively updayed significance levels.</li>
       instance-attribute
    (risk_control.RiskController.decision)" href="#risk_control.RiskController.decision">decision</a></code></td>
             <td>
-                  <code><span title="risk_control.decision.BaseDecision">BaseDecision</span></code>
+                  <code><span title="mlrisko.decision.BaseDecision">BaseDecision</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1840,7 +1818,7 @@ at iteratively updayed significance levels.</li>
       instance-attribute
    (risk_control.RiskController.params)" href="#risk_control.RiskController.params">params</a></code></td>
             <td>
-                  <code><span title="risk_control.parameter.BaseParameterSpace">BaseParameterSpace</span></code>
+                  <code><span title="mlrisko.parameter.BaseParameterSpace">BaseParameterSpace</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1857,7 +1835,7 @@ at iteratively updayed significance levels.</li>
       instance-attribute
    (risk_control.RiskController.risks)" href="#risk_control.RiskController.risks">risks</a></code></td>
             <td>
-                  <code><a class="autorefs autorefs-external" title="typing.Dict" href="https://docs.python.org/3.13/library/typing.html#typing.Dict">Dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3.13/library/stdtypes.html#str">str</a>, <span title="risk_control.risk.BaseRisk">BaseRisk</span>]</code>
+                  <code><a class="autorefs autorefs-external" title="typing.Dict" href="https://docs.python.org/3.13/library/typing.html#typing.Dict">Dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3.13/library/stdtypes.html#str">str</a>, <span title="mlrisko.risk.BaseRisk">BaseRisk</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1969,7 +1947,8 @@ The dictionary has the following structure:</p>
 <li>f"risks.{key}.values": list of risk values for each lambda value.
     (for each lambda value in rows and each sample in columns)</li>
 <li>f"risks.{key}.mean": list of mean risk values for each lambda value.</li>
-<li>f"risks.{key}.std": list of standard deviation of risk values for each lambda value.</li>
+<li>f"risks.{key}.std": list of standard deviation of risk values for each
+    lambda value.</li>
 <li>f"risks.{key}.pvalue": list of p-values for each lambda value.</li>
 <li>"params": list of all parameters for each lambda value.</li>
 <li>f"params.{key}" Additional keys for each parameter in the parameter space.</li>
@@ -2168,8 +2147,15 @@ lambda value).</p>
 
 
               <details class="quote">
-                <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 28</span>
+                <summary>Source code in <code>mlrisko/risk_control.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
 <span class="normal"> 29</span>
 <span class="normal"> 30</span>
 <span class="normal"> 31</span>
@@ -2763,12 +2749,7 @@ lambda value).</p>
 <span class="normal">619</span>
 <span class="normal">620</span>
 <span class="normal">621</span>
-<span class="normal">622</span>
-<span class="normal">623</span>
-<span class="normal">624</span>
-<span class="normal">625</span>
-<span class="normal">626</span>
-<span class="normal">627</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">RiskController</span><span class="p">:</span>
+<span class="normal">622</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">RiskController</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Risk control for conformal prediction.</span>
 
@@ -2837,7 +2818,8 @@ lambda value).</p>
 <span class="sd">        - f&quot;risks.{key}.values&quot;: list of risk values for each lambda value.</span>
 <span class="sd">            (for each lambda value in rows and each sample in columns)</span>
 <span class="sd">        - f&quot;risks.{key}.mean&quot;: list of mean risk values for each lambda value.</span>
-<span class="sd">        - f&quot;risks.{key}.std&quot;: list of standard deviation of risk values for each lambda value.</span>
+<span class="sd">        - f&quot;risks.{key}.std&quot;: list of standard deviation of risk values for each</span>
+<span class="sd">            lambda value.</span>
 <span class="sd">        - f&quot;risks.{key}.pvalue&quot;: list of p-values for each lambda value.</span>
 <span class="sd">        - &quot;params&quot;: list of all parameters for each lambda value.</span>
 <span class="sd">        - f&quot;params.{key}&quot; Additional keys for each parameter in the parameter space.</span>
@@ -2859,21 +2841,21 @@ lambda value).</p>
 <span class="sd">    _valid_control_method : dict</span>
 <span class="sd">        The valid control methods (defining the criteria for selecting the optimal</span>
 <span class="sd">        lambda value).</span>
-<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">_valid_pvalues_method</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">_valid_pvalues_method</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># noqa: RUF012</span>
         <span class="s2">&quot;clt&quot;</span><span class="p">:</span> <span class="n">compute_clt_p_values</span><span class="p">,</span>
         <span class="s2">&quot;hb&quot;</span><span class="p">:</span> <span class="n">compute_hb_p_values</span><span class="p">,</span>
     <span class="p">}</span>
 
-    <span class="n">_valid_fwer_method</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># type: ignore</span>
+    <span class="n">_valid_fwer_method</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># noqa: RUF012</span>
         <span class="s2">&quot;standard&quot;</span><span class="p">:</span> <span class="n">fwer_bonferroni</span><span class="p">,</span>
         <span class="c1"># TODO: fixed sequence testing</span>
         <span class="s2">&quot;sgt_old&quot;</span><span class="p">:</span> <span class="n">fwer_sgt</span><span class="p">,</span>
         <span class="s2">&quot;sgt&quot;</span><span class="p">:</span> <span class="n">fwer_sgt_nd</span><span class="p">,</span>
     <span class="p">}</span>
 
-    <span class="n">_valid_control_method</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># type: ignore</span>
+    <span class="n">_valid_control_method</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># noqa: RUF012</span>
         <span class="s2">&quot;lmin&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="bp">self</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span>
             <span class="p">[</span><span class="n">elt</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_param</span><span class="p">]</span> <span class="k">for</span> <span class="n">elt</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">valid_lambdas</span><span class="p">]</span>
         <span class="p">),</span>  <span class="c1"># TODO: not working because elements are dictionary</span>
@@ -2953,8 +2935,8 @@ lambda value).</p>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">cr_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_cr_results</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ref_risk</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">risks</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ref_param</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ref_risk</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">risks</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ref_param</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">lambda_to_select</span> <span class="o">=</span> <span class="n">lambda_to_select</span>
 
@@ -3059,11 +3041,12 @@ lambda value).</p>
 <span class="sd">            - f&quot;risks.{key}.values&quot;: list of risk values for each lambda value.</span>
 <span class="sd">                (for each lambda value in rows and each sample in columns)</span>
 <span class="sd">            - f&quot;risks.{key}.mean&quot;: list of mean risk values for each lambda value.</span>
-<span class="sd">            - f&quot;risks.{key}.std&quot;: list of standard deviation of risk values for each lambda value.</span>
+<span class="sd">            - f&quot;risks.{key}.std&quot;: list of standard deviation of risk values for each</span>
+<span class="sd">                lambda value.</span>
 <span class="sd">            - f&quot;risks.{key}.pvalue&quot;: list of p-values for each lambda value.</span>
 <span class="sd">            - &quot;params&quot;: list of all parameters for each lambda value.</span>
 <span class="sd">            - f&quot;params.{key}&quot; Additional keys for each parameter in the parameter space.</span>
-<span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">cr_results</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_cr_results</span><span class="p">()</span>
 
         <span class="n">y_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decision</span><span class="o">.</span><span class="n">make_prediction</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
@@ -3396,8 +3379,8 @@ lambda value).</p>
 
 </h3>
 <div class="doc-signature highlight"><pre><span></span><code><span class="n">_valid_pvalues_method</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;clt&quot;</span><span class="p">:</span> <span class="n"><span title="risk_control.tools.pvalues.compute_clt_p_values">compute_clt_p_values</span></span><span class="p">,</span>
-    <span class="s2">&quot;hb&quot;</span><span class="p">:</span> <span class="n"><span title="risk_control.tools.pvalues.compute_hb_p_values">compute_hb_p_values</span></span><span class="p">,</span>
+    <span class="s2">&quot;clt&quot;</span><span class="p">:</span> <span class="n"><span title="mlrisko.tools.pvalues.compute_clt_p_values">compute_clt_p_values</span></span><span class="p">,</span>
+    <span class="s2">&quot;hb&quot;</span><span class="p">:</span> <span class="n"><span title="mlrisko.tools.pvalues.compute_hb_p_values">compute_hb_p_values</span></span><span class="p">,</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -3422,9 +3405,9 @@ lambda value).</p>
 
 </h3>
 <div class="doc-signature highlight"><pre><span></span><code><span class="n">_valid_fwer_method</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;standard&quot;</span><span class="p">:</span> <span class="n"><span title="risk_control.tools.fwer_control.fwer_bonferroni">fwer_bonferroni</span></span><span class="p">,</span>
-    <span class="s2">&quot;sgt_old&quot;</span><span class="p">:</span> <span class="n"><span title="risk_control.tools.fwer_control.fwer_sgt">fwer_sgt</span></span><span class="p">,</span>
-    <span class="s2">&quot;sgt&quot;</span><span class="p">:</span> <span class="n"><span title="risk_control.tools.fwer_control.fwer_sgt_nd">fwer_sgt_nd</span></span><span class="p">,</span>
+    <span class="s2">&quot;standard&quot;</span><span class="p">:</span> <span class="n"><span title="mlrisko.tools.fwer_control.fwer_bonferroni">fwer_bonferroni</span></span><span class="p">,</span>
+    <span class="s2">&quot;sgt_old&quot;</span><span class="p">:</span> <span class="n"><span title="mlrisko.tools.fwer_control.fwer_sgt">fwer_sgt</span></span><span class="p">,</span>
+    <span class="s2">&quot;sgt&quot;</span><span class="p">:</span> <span class="n"><span title="mlrisko.tools.fwer_control.fwer_sgt_nd">fwer_sgt_nd</span></span><span class="p">,</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -3545,7 +3528,7 @@ lambda value).</p>
   </span>
 
 </h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">target_risks</span> <span class="o">=</span> <span class="p">{</span><span class="n"><span title="risk_.name">name</span></span><span class="p">:</span> <span class="n">_j5npUk9PwgV7DMfor</span> <span class="n"><span title="risk_">risk_</span></span> <span class="ow">in</span> <span class="n"><span title="risk_control.RiskController(self).risks.values">values</span></span><span class="p">()}</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">target_risks</span> <span class="o">=</span> <span class="p">{</span><span class="n"><span title="risk_.name">name</span></span><span class="p">:</span> <span class="n">_EGShEbWhah4HLufor</span> <span class="n"><span title="risk_">risk_</span></span> <span class="ow">in</span> <span class="n"><span title="risk_control.RiskController(self).risks.values">values</span></span><span class="p">()}</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -3677,7 +3660,7 @@ lambda value).</p>
   </span>
 
 </h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">ref_risk</span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3.13/glossary.html#term-list">list</a></span><span class="p">(</span><span class="n"><span title="risk_control.RiskController(self).risks.keys">keys</span></span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">ref_risk</span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3.13/library/pdb.html#pdbcommand-next">next</a></span><span class="p">(</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3.13/library/functions.html#iter">iter</a></span><span class="p">(</span><span class="n"><span title="risk_control.RiskController(self).risks.keys">keys</span></span><span class="p">()))</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -3699,7 +3682,7 @@ lambda value).</p>
   </span>
 
 </h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">ref_param</span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3.13/glossary.html#term-list">list</a></span><span class="p">(</span><span class="n"><span title="risk_control.RiskController(self).params.keys">keys</span></span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">ref_param</span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3.13/library/pdb.html#pdbcommand-next">next</a></span><span class="p">(</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3.13/library/functions.html#iter">iter</a></span><span class="p">(</span><span class="n"><span title="risk_control.RiskController(self).params.keys">keys</span></span><span class="p">()))</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -3773,7 +3756,7 @@ lambda value).</p>
                 <code>decision</code>
             </td>
             <td>
-                  <code><span title="risk_control.decision.BaseDecision">BaseDecision</span></code>
+                  <code><span title="mlrisko.decision.BaseDecision">BaseDecision</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3789,7 +3772,7 @@ lambda value).</p>
                 <code>params</code>
             </td>
             <td>
-                  <code><span title="risk_control.parameter.BaseParameterSpace">BaseParameterSpace</span></code>
+                  <code><span title="mlrisko.parameter.BaseParameterSpace">BaseParameterSpace</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3805,7 +3788,7 @@ lambda value).</p>
                 <code>risks</code>
             </td>
             <td>
-                  <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3.13/library/typing.html#typing.Union">Union</a>[<span title="risk_control.risk.BaseRisk">BaseRisk</span>, <a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3.13/library/typing.html#typing.List">List</a>[<span title="risk_control.risk.BaseRisk">BaseRisk</span>], <a class="autorefs autorefs-external" title="typing.Dict" href="https://docs.python.org/3.13/library/typing.html#typing.Dict">Dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3.13/library/stdtypes.html#str">str</a>, <span title="risk_control.risk.BaseRisk">BaseRisk</span>]]</code>
+                  <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3.13/library/typing.html#typing.Union">Union</a>[<span title="mlrisko.risk.BaseRisk">BaseRisk</span>, <a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3.13/library/typing.html#typing.List">List</a>[<span title="mlrisko.risk.BaseRisk">BaseRisk</span>], <a class="autorefs autorefs-external" title="typing.Dict" href="https://docs.python.org/3.13/library/typing.html#typing.Dict">Dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3.13/library/stdtypes.html#str">str</a>, <span title="mlrisko.risk.BaseRisk">BaseRisk</span>]]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3918,8 +3901,14 @@ lambda value).</p>
 
 
             <details class="quote">
-              <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">144</span>
+              <summary>Source code in <code>mlrisko/risk_control.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
 <span class="normal">145</span>
 <span class="normal">146</span>
 <span class="normal">147</span>
@@ -3985,13 +3974,7 @@ lambda value).</p>
 <span class="normal">207</span>
 <span class="normal">208</span>
 <span class="normal">209</span>
-<span class="normal">210</span>
-<span class="normal">211</span>
-<span class="normal">212</span>
-<span class="normal">213</span>
-<span class="normal">214</span>
-<span class="normal">215</span>
-<span class="normal">216</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">210</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">decision</span><span class="p">:</span> <span class="n">BaseDecision</span><span class="p">,</span>
     <span class="n">params</span><span class="p">:</span> <span class="n">BaseParameterSpace</span><span class="p">,</span>
@@ -4060,8 +4043,8 @@ lambda value).</p>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">cr_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_cr_results</span><span class="p">()</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">ref_risk</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">risks</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ref_param</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ref_risk</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">risks</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ref_param</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">lambda_to_select</span> <span class="o">=</span> <span class="n">lambda_to_select</span>
 </code></pre></div></td></tr></table></div>
@@ -4110,8 +4093,14 @@ lambda value).</p>
 
 
             <details class="quote">
-              <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">218</span>
+              <summary>Source code in <code>mlrisko/risk_control.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
 <span class="normal">219</span>
 <span class="normal">220</span>
 <span class="normal">221</span>
@@ -4127,13 +4116,7 @@ lambda value).</p>
 <span class="normal">231</span>
 <span class="normal">232</span>
 <span class="normal">233</span>
-<span class="normal">234</span>
-<span class="normal">235</span>
-<span class="normal">236</span>
-<span class="normal">237</span>
-<span class="normal">238</span>
-<span class="normal">239</span>
-<span class="normal">240</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_initialize_cr_results</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
+<span class="normal">234</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_initialize_cr_results</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initialize the control results dictionary.</span>
 
@@ -4220,7 +4203,7 @@ lambda value).</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="risk_control.decision.BaseDecision">BaseDecision</span></code>
+                  <code><span title="mlrisko.decision.BaseDecision">BaseDecision</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4233,8 +4216,14 @@ lambda value).</p>
 
 
             <details class="quote">
-              <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">242</span>
+              <summary>Source code in <code>mlrisko/risk_control.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
 <span class="normal">243</span>
 <span class="normal">244</span>
 <span class="normal">245</span>
@@ -4248,13 +4237,7 @@ lambda value).</p>
 <span class="normal">253</span>
 <span class="normal">254</span>
 <span class="normal">255</span>
-<span class="normal">256</span>
-<span class="normal">257</span>
-<span class="normal">258</span>
-<span class="normal">259</span>
-<span class="normal">260</span>
-<span class="normal">261</span>
-<span class="normal">262</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_clone_decision_with_params</span><span class="p">(</span>
+<span class="normal">256</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_clone_decision_with_params</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseDecision</span><span class="p">:</span>
@@ -4362,8 +4345,14 @@ lambda value).</p>
 
 
             <details class="quote">
-              <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">264</span>
+              <summary>Source code in <code>mlrisko/risk_control.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
 <span class="normal">265</span>
 <span class="normal">266</span>
 <span class="normal">267</span>
@@ -4380,13 +4369,7 @@ lambda value).</p>
 <span class="normal">278</span>
 <span class="normal">279</span>
 <span class="normal">280</span>
-<span class="normal">281</span>
-<span class="normal">282</span>
-<span class="normal">283</span>
-<span class="normal">284</span>
-<span class="normal">285</span>
-<span class="normal">286</span>
-<span class="normal">287</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_get_all_combinations</span><span class="p">(</span>
+<span class="normal">281</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_get_all_combinations</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -4532,7 +4515,8 @@ The dictionary has the following structure:</p>
 <li>f"risks.{key}.values": list of risk values for each lambda value.
     (for each lambda value in rows and each sample in columns)</li>
 <li>f"risks.{key}.mean": list of mean risk values for each lambda value.</li>
-<li>f"risks.{key}.std": list of standard deviation of risk values for each lambda value.</li>
+<li>f"risks.{key}.std": list of standard deviation of risk values for each
+    lambda value.</li>
 <li>f"risks.{key}.pvalue": list of p-values for each lambda value.</li>
 <li>"params": list of all parameters for each lambda value.</li>
 <li>f"params.{key}" Additional keys for each parameter in the parameter space.</li>
@@ -4545,8 +4529,14 @@ The dictionary has the following structure:</p>
 
 
             <details class="quote">
-              <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">289</span>
+              <summary>Source code in <code>mlrisko/risk_control.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
 <span class="normal">290</span>
 <span class="normal">291</span>
 <span class="normal">292</span>
@@ -4606,12 +4596,7 @@ The dictionary has the following structure:</p>
 <span class="normal">346</span>
 <span class="normal">347</span>
 <span class="normal">348</span>
-<span class="normal">349</span>
-<span class="normal">350</span>
-<span class="normal">351</span>
-<span class="normal">352</span>
-<span class="normal">353</span>
-<span class="normal">354</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_estimate_risk</span><span class="p">(</span>
+<span class="normal">349</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_estimate_risk</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
@@ -4641,11 +4626,12 @@ The dictionary has the following structure:</p>
 <span class="sd">        - f&quot;risks.{key}.values&quot;: list of risk values for each lambda value.</span>
 <span class="sd">            (for each lambda value in rows and each sample in columns)</span>
 <span class="sd">        - f&quot;risks.{key}.mean&quot;: list of mean risk values for each lambda value.</span>
-<span class="sd">        - f&quot;risks.{key}.std&quot;: list of standard deviation of risk values for each lambda value.</span>
+<span class="sd">        - f&quot;risks.{key}.std&quot;: list of standard deviation of risk values for each</span>
+<span class="sd">            lambda value.</span>
 <span class="sd">        - f&quot;risks.{key}.pvalue&quot;: list of p-values for each lambda value.</span>
 <span class="sd">        - &quot;params&quot;: list of all parameters for each lambda value.</span>
 <span class="sd">        - f&quot;params.{key}&quot; Additional keys for each parameter in the parameter space.</span>
-<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cr_results</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_cr_results</span><span class="p">()</span>
 
     <span class="n">y_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decision</span><span class="o">.</span><span class="n">make_prediction</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
@@ -4796,8 +4782,13 @@ Its a dictionary with the following structure:</p>
 
 
             <details class="quote">
-              <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">356</span>
+              <summary>Source code in <code>mlrisko/risk_control.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">351</span>
+<span class="normal">352</span>
+<span class="normal">353</span>
+<span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span>
 <span class="normal">357</span>
 <span class="normal">358</span>
 <span class="normal">359</span>
@@ -4829,12 +4820,7 @@ Its a dictionary with the following structure:</p>
 <span class="normal">385</span>
 <span class="normal">386</span>
 <span class="normal">387</span>
-<span class="normal">388</span>
-<span class="normal">389</span>
-<span class="normal">390</span>
-<span class="normal">391</span>
-<span class="normal">392</span>
-<span class="normal">393</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span>
+<span class="normal">388</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
@@ -5004,8 +4990,13 @@ Its a dictionary with the following structure:</p>
 
 
             <details class="quote">
-              <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">395</span>
+              <summary>Source code in <code>mlrisko/risk_control.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">390</span>
+<span class="normal">391</span>
+<span class="normal">392</span>
+<span class="normal">393</span>
+<span class="normal">394</span>
+<span class="normal">395</span>
 <span class="normal">396</span>
 <span class="normal">397</span>
 <span class="normal">398</span>
@@ -5030,12 +5021,7 @@ Its a dictionary with the following structure:</p>
 <span class="normal">417</span>
 <span class="normal">418</span>
 <span class="normal">419</span>
-<span class="normal">420</span>
-<span class="normal">421</span>
-<span class="normal">422</span>
-<span class="normal">423</span>
-<span class="normal">424</span>
-<span class="normal">425</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_estimate_pvalues</span><span class="p">(</span>
+<span class="normal">420</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_estimate_pvalues</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -5198,8 +5184,13 @@ Its a dictionary with the following structure:</p>
 
 
             <details class="quote">
-              <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">427</span>
+              <summary>Source code in <code>mlrisko/risk_control.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">422</span>
+<span class="normal">423</span>
+<span class="normal">424</span>
+<span class="normal">425</span>
+<span class="normal">426</span>
+<span class="normal">427</span>
 <span class="normal">428</span>
 <span class="normal">429</span>
 <span class="normal">430</span>
@@ -5227,12 +5218,7 @@ Its a dictionary with the following structure:</p>
 <span class="normal">452</span>
 <span class="normal">453</span>
 <span class="normal">454</span>
-<span class="normal">455</span>
-<span class="normal">456</span>
-<span class="normal">457</span>
-<span class="normal">458</span>
-<span class="normal">459</span>
-<span class="normal">460</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_control_fwer</span><span class="p">(</span>
+<span class="normal">455</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_control_fwer</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">p_values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">delta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -5299,8 +5285,13 @@ and their corresponding risks (<code>valid_risks</code>).</li>
 
 
             <details class="quote">
-              <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">462</span>
+              <summary>Source code in <code>mlrisko/risk_control.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">457</span>
+<span class="normal">458</span>
+<span class="normal">459</span>
+<span class="normal">460</span>
+<span class="normal">461</span>
+<span class="normal">462</span>
 <span class="normal">463</span>
 <span class="normal">464</span>
 <span class="normal">465</span>
@@ -5357,12 +5348,7 @@ and their corresponding risks (<code>valid_risks</code>).</li>
 <span class="normal">516</span>
 <span class="normal">517</span>
 <span class="normal">518</span>
-<span class="normal">519</span>
-<span class="normal">520</span>
-<span class="normal">521</span>
-<span class="normal">522</span>
-<span class="normal">523</span>
-<span class="normal">524</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">519</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Test all hypotheses and identify valid lambda values that control the</span>
 <span class="sd">    risk and family-wise error rate. The procedure is as follows:</span>
@@ -5477,8 +5463,13 @@ and their corresponding risks (<code>valid_risks</code>).</li>
 
 
             <details class="quote">
-              <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">526</span>
+              <summary>Source code in <code>mlrisko/risk_control.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">521</span>
+<span class="normal">522</span>
+<span class="normal">523</span>
+<span class="normal">524</span>
+<span class="normal">525</span>
+<span class="normal">526</span>
 <span class="normal">527</span>
 <span class="normal">528</span>
 <span class="normal">529</span>
@@ -5504,12 +5495,7 @@ and their corresponding risks (<code>valid_risks</code>).</li>
 <span class="normal">549</span>
 <span class="normal">550</span>
 <span class="normal">551</span>
-<span class="normal">552</span>
-<span class="normal">553</span>
-<span class="normal">554</span>
-<span class="normal">555</span>
-<span class="normal">556</span>
-<span class="normal">557</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">control</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">552</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">control</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Control the risk based on the specified method. The procedure is as follows:</span>
 
@@ -5656,8 +5642,13 @@ and their corresponding risks (<code>valid_risks</code>).</li>
 
 
             <details class="quote">
-              <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">559</span>
+              <summary>Source code in <code>mlrisko/risk_control.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">554</span>
+<span class="normal">555</span>
+<span class="normal">556</span>
+<span class="normal">557</span>
+<span class="normal">558</span>
+<span class="normal">559</span>
 <span class="normal">560</span>
 <span class="normal">561</span>
 <span class="normal">562</span>
@@ -5683,12 +5674,7 @@ and their corresponding risks (<code>valid_risks</code>).</li>
 <span class="normal">582</span>
 <span class="normal">583</span>
 <span class="normal">584</span>
-<span class="normal">585</span>
-<span class="normal">586</span>
-<span class="normal">587</span>
-<span class="normal">588</span>
-<span class="normal">589</span>
-<span class="normal">590</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span>
+<span class="normal">585</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
@@ -5797,8 +5783,13 @@ and their corresponding risks (<code>valid_risks</code>).</li>
 
 
             <details class="quote">
-              <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">592</span>
+              <summary>Source code in <code>mlrisko/risk_control.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">587</span>
+<span class="normal">588</span>
+<span class="normal">589</span>
+<span class="normal">590</span>
+<span class="normal">591</span>
+<span class="normal">592</span>
 <span class="normal">593</span>
 <span class="normal">594</span>
 <span class="normal">595</span>
@@ -5807,12 +5798,7 @@ and their corresponding risks (<code>valid_risks</code>).</li>
 <span class="normal">598</span>
 <span class="normal">599</span>
 <span class="normal">600</span>
-<span class="normal">601</span>
-<span class="normal">602</span>
-<span class="normal">603</span>
-<span class="normal">604</span>
-<span class="normal">605</span>
-<span class="normal">606</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="normal">601</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Make predictions on the input data.</span>
 
@@ -5850,8 +5836,13 @@ and their corresponding risks (<code>valid_risks</code>).</li>
 
 
             <details class="quote">
-              <summary>Source code in <code>risk_control/risk_control.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">608</span>
+              <summary>Source code in <code>mlrisko/risk_control.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">603</span>
+<span class="normal">604</span>
+<span class="normal">605</span>
+<span class="normal">606</span>
+<span class="normal">607</span>
+<span class="normal">608</span>
 <span class="normal">609</span>
 <span class="normal">610</span>
 <span class="normal">611</span>
@@ -5865,12 +5856,7 @@ and their corresponding risks (<code>valid_risks</code>).</li>
 <span class="normal">619</span>
 <span class="normal">620</span>
 <span class="normal">621</span>
-<span class="normal">622</span>
-<span class="normal">623</span>
-<span class="normal">624</span>
-<span class="normal">625</span>
-<span class="normal">626</span>
-<span class="normal">627</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">622</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Print a summary of the risk control results.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
